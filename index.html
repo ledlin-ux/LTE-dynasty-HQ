@@ -15,16 +15,16 @@ button,select{font:inherit}.shell{max-width:1250px;margin:auto}.top{padding:24px
 <div class="shell">
 <div class="top"><div class="brand"><b>LTE DYNASTY HQ</b><span id="sub">Loading league intelligence…</span></div><div class="live">● LIVE SLEEPER DATA</div></div>
 <div class="nav" id="nav"></div><main class="main" id="app"><div class="loading">Building LTE Dynasty HQ…</div></main>
-<div class="foot">LTE Dynasty HQ · Unofficial league analytics · Data via Sleeper</div>
+<div class="foot">LTE Dynasty HQ v1.1 · Unofficial league analytics · Data via Sleeper</div>
 </div>
 <script>
 const LEAGUE_ID="1335326900251271168", API="https://api.sleeper.app/v1", SIMS=12000;
 let D={league:null,state:null,teams:[],weeks:[],week:1,regWeeks:14,history:null}, page="HQ";
-const pages=["HQ","Power Rankings","Odds","Matchups","Franchises","History","Record Book"];
+const pages=["HQ","Power Rankings","Odds","Matchups","Franchises","Head-to-Head","History","Record Book"];
 const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function get(u){let r=await fetch(u);if(!r.ok)throw Error("Sleeper API "+r.status);return r.json()}
 function nav(){ $("#nav").innerHTML=pages.map(x=>`<button class="${x===page?"on":""}" onclick="go('${x}')">${x}</button>`).join("") }
-function go(x){page=x;nav(); if((x==="History"||x==="Record Book")&&!D.history) loadHistory(); else render()}
+function go(x){page=x;nav(); if((x==="History"||x==="Record Book"||x==="Head-to-Head")&&!D.history) loadHistory(); else render()}
 function pf(r){return +(Number(r.settings?.fpts||0)+(Number(r.settings?.fpts_decimal||0)/100)).toFixed(2)}
 function games(t){return t.w+t.l+t.t}
 function pct(x){return (100*x).toFixed(x>.095?1:2)+"%"}
@@ -74,12 +74,50 @@ function render(){
  if(page==="Odds")h=`<div class="grid">${oddsTable()}</div>`;
  if(page==="Matchups")h=`<div class="grid">${matchupCard()}<div class="card"><h3 class="sectionTitle">Scoring Form</h3>${power().map(t=>`<div style="margin:12px 0"><b>${esc(t.name)}</b><span class="muted"> · ${t.recent.toFixed(1)} recent avg</span><div class="bar"><i style="width:${Math.min(100,t.recent/2)}%"></i></div></div>`).join("")}</div></div>`;
  if(page==="Franchises")h=`<div class="hero"><div class="eyebrow">THE 12</div><h1>LTE Franchises</h1><div class="muted">Current-season franchise profiles and analytics.</div></div><div class="teamGrid">${power().map((t,i)=>`<div class="team"><span class="pill">Power #${i+1}</span><h3>${esc(t.name)}</h3><div class="muted">${esc(t.display)}</div><p><b>${t.w}-${t.l}</b> · ${t.pf.toFixed(1)} PF</p><div class="kpi">Championship probability</div><div class="stat">${pct(D.odds[t.id].c/SIMS)}</div></div>`).join("")}</div>`;
+ if(page==="Head-to-Head")h=headToHeadHTML();
  if(page==="History"||page==="Record Book")h=historyHTML();
  $("#app").innerHTML=h
 }
 async function loadHistory(){
  $("#app").innerHTML=`<div class="loading">Following LTE's Sleeper league history…</div>`;
- try{let id=LEAGUE_ID,seasons=[],seen=new Set();for(let n=0;n<15&&id&&!seen.has(id);n++){seen.add(id);let l=await get(`${API}/league/${id}`),[u,r,b]=await Promise.all([get(`${API}/league/${id}/users`),get(`${API}/league/${id}/rosters`),get(`${API}/league/${id}/winners_bracket`).catch(()=>[])]),um=Object.fromEntries(u.map(x=>[x.user_id,x])),max=Math.max(0,...b.map(x=>x.r||0)),final=b.find(x=>x.r===max&&x.w),champ=final?r.find(x=>x.roster_id===final.w):null,cu=champ?um[champ.owner_id]:null;seasons.push({season:l.season,name:l.name,champ:cu?.metadata?.team_name||cu?.display_name||"Not available",rosters:r,users:um});id=l.previous_league_id}D.history=seasons;render()}catch(e){D.history=[];render()}
+ try{let id=LEAGUE_ID,seasons=[],seen=new Set();for(let n=0;n<15&&id&&!seen.has(id);n++){seen.add(id);let l=await get(`${API}/league/${id}`),[u,r,b]=await Promise.all([get(`${API}/league/${id}/users`),get(`${API}/league/${id}/rosters`),get(`${API}/league/${id}/winners_bracket`).catch(()=>[])]),um=Object.fromEntries(u.map(x=>[x.user_id,x])),max=Math.max(0,...b.map(x=>x.r||0)),final=b.find(x=>x.r===max&&x.w),champ=final?r.find(x=>x.roster_id===final.w):null,cu=champ?um[champ.owner_id]:null,reg=Math.max(1,(l.settings?.playoff_week_start||15)-1),weeks=await Promise.all(Array.from({length:reg},(_,i)=>get(`${API}/league/${id}/matchups/${i+1}`).catch(()=>[])));seasons.push({season:l.season,name:l.name,champ:cu?.metadata?.team_name||cu?.display_name||"Not available",rosters:r,users:um,weeks});id=l.previous_league_id}D.history=seasons;render()}catch(e){D.history=[];render()}
+}
+
+function canonicalName(s,r){
+ let u=s.users[r.owner_id]||{};
+ return u.metadata?.team_name||u.display_name||`Roster ${r.roster_id}`;
+}
+function h2hData(){
+ let map={};
+ for(let s of D.history||[]){
+  let rn=Object.fromEntries(s.rosters.map(r=>[r.roster_id,canonicalName(s,r)]));
+  for(let wi=0;wi<(s.weeks||[]).length;wi++){
+   let groups={};for(let m of s.weeks[wi]||[])(groups[m.matchup_id]??=[]).push(m);
+   for(let g of Object.values(groups)){if(g.length!==2)continue;
+    let a=g[0],b=g[1]; if(!(a.points>0||b.points>0))continue;
+    let an=rn[a.roster_id],bn=rn[b.roster_id]; if(!an||!bn||an===bn)continue;
+    let key=[an,bn].sort().join("|||"),x=map[key]??={a:[an,bn].sort()[0],b:[an,bn].sort()[1],games:[]};
+    x.games.push({season:s.season,week:wi+1,an,bn,as:+a.points,bs:+b.points});
+   }
+  }
+ }
+ return Object.values(map);
+}
+function headToHeadHTML(){
+ if(!D.history)return `<div class="loading">Building LTE rivalry database…</div>`;
+ let pairs=h2hData(), names=[...new Set(pairs.flatMap(x=>[x.a,x.b]))].sort();
+ return `<div class="hero"><div class="eyebrow">RIVALRY DATABASE</div><h1>Head-to-Head</h1><div class="muted">Historical regular-season results reconstructed from every linked Sleeper season.</div></div>
+ <div class="card wide"><h3 class="sectionTitle">All-Time Rivalry Records</h3>
+ <table class="table"><tr><th>Matchup</th><th>Meetings</th><th>Series</th><th>PF</th><th>Point Diff</th><th>Last Meeting</th></tr>
+ ${pairs.sort((x,y)=>y.games.length-x.games.length).map(x=>{
+   let aw=0,bw=0,t=0,ap=0,bp=0;
+   for(let g of x.games){let xa=g.an===x.a?g.as:g.bs, xb=g.an===x.a?g.bs:g.as;ap+=xa;bp+=xb;if(xa>xb)aw++;else if(xb>xa)bw++;else t++}
+   let last=x.games[x.games.length-1],lead=aw===bw?`Tied ${aw}-${bw}`:aw>bw?`${esc(x.a)} ${aw}-${bw}`:`${esc(x.b)} ${bw}-${aw}`;
+   return `<tr><td><b>${esc(x.a)}</b><br><span class="muted">vs ${esc(x.b)}</span></td><td>${x.games.length}</td><td>${lead}${t?`-${t}`:""}</td><td>${ap.toFixed(1)} / ${bp.toFixed(1)}</td><td>${(ap-bp)>=0?"+":""}${(ap-bp).toFixed(1)} ${esc(x.a)}</td><td>${esc(last.season)} W${last.week}</td></tr>`
+ }).join("")}</table></div>
+ <div class="card wide" style="margin-top:14px"><h3 class="sectionTitle">Franchise Rivalry Cards</h3><div class="teamGrid">
+ ${names.map(n=>{let rows=pairs.filter(x=>x.a===n||x.b===n).map(x=>{let opp=x.a===n?x.b:x.a,w=0,l=0,t=0,pf=0,pa=0;for(let g of x.games){let mine=g.an===n?g.as:g.bs,other=g.an===n?g.bs:g.as;pf+=mine;pa+=other;if(mine>other)w++;else if(mine<other)l++;else t++}return{opp,w,l,t,pf,pa}}).sort((a,b)=>b.w-a.w||a.l-b.l);return `<div class="team"><h3>${esc(n)}</h3>${rows.map(r=>`<div style="padding:7px 0;border-bottom:1px solid #202b3a"><b>${esc(r.opp)}</b><span style="float:right">${r.w}-${r.l}${r.t?`-${r.t}`:""}</span><div class="muted">${r.pf.toFixed(1)} PF · ${r.pa.toFixed(1)} PA</div></div>`).join("")}</div>`}).join("")}
+ </div></div>`;
 }
 function historyHTML(){
  if(!D.history)return `<div class="loading">Loading history…</div>`;
