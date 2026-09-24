@@ -15,11 +15,41 @@ button,select{font:inherit}.shell{max-width:1250px;margin:auto}.top{padding:24px
 <div class="shell">
 <div class="top"><div class="brand"><b>LTE DYNASTY HQ</b><span id="sub">Loading league intelligence…</span></div><div class="live">● LIVE SLEEPER DATA</div></div>
 <div class="nav" id="nav"></div><main class="main" id="app"><div class="loading">Building LTE Dynasty HQ…</div></main>
-<div class="foot">LTE Dynasty HQ v1.1 · Unofficial league analytics · Data via Sleeper</div>
+<div class="foot">LTE Dynasty HQ v1.2 · Unofficial league analytics · Data via Sleeper</div>
 </div>
 <script>
 const LEAGUE_ID="1335326900251271168", API="https://api.sleeper.app/v1", SIMS=12000;
 let D={league:null,state:null,teams:[],weeks:[],week:1,regWeeks:14,history:null}, page="HQ";
+
+const FRANCHISE_REGISTRY=[
+ {name:"Reconstruction Phase",aliases:["Reconstruction Phase"]},
+ {name:"Gramercy Rental Hogs",aliases:["Gramercy Rental Hogs","Oklahoma City Thunder","King Scum LLC","Team Plum"]},
+ {name:"Fish & Chips",aliases:["Fish & Chips","Gfish22"]},
+ {name:"Buddha Bear",aliases:["Buddha Bear","Team Wertheimer","Codan Livheimer","Codan Livneimer","B’nai Yisrael","B' nai Yisrael","B'nai Yisrael"]},
+ {name:"Keeping up w/ the Jonses",aliases:["Keeping up w/ the Jonses","Keeping Up w/ The Jonses","🐀Bonnie shmedlin🐀"]},
+ {name:"Team Indianajosh1862",aliases:["Team Indianajosh1862"]},
+ {name:"Oy Lchaim Lchaim",aliases:["Oy Lchaim Lchaim","DAWID Arthega-Whitethide"]},
+ {name:"I love my team so much",aliases:["I love my team so much","Creakmen","Creak boys","Creak"]},
+ {name:"Borkinators",aliases:["Borkinators","Danielle Mirzakandov","Strikhov","Strikhov Infirmary","The BorkSheveiks"]},
+ {name:"Satya Sai Remediation Co.",aliases:["Satya Sai Remediation Co.","Satyas Species of Warfare","Satyas Species O' Warfare","Satya Sai's TE Academy","Satya Sai Baba"]},
+ {name:"Bopped-Tolo Colon",aliases:["Bopped-Tolo Colon","BoptoloColon","Bumtolo Colon"]},
+ {name:"Rvrnd Revsins Rglr Resin",aliases:["Rvrnd Revsins Rglr Resin","Rev Revzins Regular Resin"]}
+];
+function normName(v){return String(v||"").normalize("NFKC").trim().toLowerCase().replace(/\s+/g," ")}
+const ALIAS_MAP=(()=>{let m={};for(let f of FRANCHISE_REGISTRY)for(let a of f.aliases)m[normName(a)]=f.name;return m})();
+function franchiseName(raw){return ALIAS_MAP[normName(raw)]||raw}
+function registryAudit(){
+ let found=new Map();
+ for(let s of D.history||[])for(let r of s.rosters){
+   let raw=rawHistoricalName(s,r); if(!raw)continue;
+   let k=normName(raw); if(!ALIAS_MAP[k]){
+     let x=found.get(k)||{name:raw,seasons:new Set()};
+     x.seasons.add(String(s.season));found.set(k,x)
+   }
+ }
+ return [...found.values()].map(x=>({name:x.name,seasons:[...x.seasons].sort()})).sort((a,b)=>a.name.localeCompare(b.name))
+}
+
 const pages=["HQ","Power Rankings","Odds","Matchups","Franchises","Head-to-Head","History","Record Book"];
 const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function get(u){let r=await fetch(u);if(!r.ok)throw Error("Sleeper API "+r.status);return r.json()}
@@ -35,7 +65,7 @@ async function load(){
   const [league,state,users,rosters]=await Promise.all([get(`${API}/league/${LEAGUE_ID}`),get(`${API}/state/nfl`),get(`${API}/league/${LEAGUE_ID}/users`),get(`${API}/league/${LEAGUE_ID}/rosters`)]);
   D.league=league;D.state=state;D.week=Math.max(1,state.week||1);D.regWeeks=Math.max(1,(league.settings?.playoff_week_start||15)-1);
   const um=Object.fromEntries(users.map(u=>[u.user_id,u]));
-  D.teams=rosters.map(r=>{let u=um[r.owner_id]||{},g=(r.settings?.wins||0)+(r.settings?.losses||0)+(r.settings?.ties||0);return{id:r.roster_id,owner:r.owner_id,name:u.metadata?.team_name||u.display_name||`Roster ${r.roster_id}`,display:u.display_name||"",w:r.settings?.wins||0,l:r.settings?.losses||0,t:r.settings?.ties||0,pf:pf(r),g,scores:[],allW:0,allN:0,recent:0,mean:0,sd:15}});
+  D.teams=rosters.map(r=>{let u=um[r.owner_id]||{},g=(r.settings?.wins||0)+(r.settings?.losses||0)+(r.settings?.ties||0);return{id:r.roster_id,owner:r.owner_id,name:franchiseName(u.metadata?.team_name||u.display_name||`Roster ${r.roster_id}`),display:u.display_name||"",w:r.settings?.wins||0,l:r.settings?.losses||0,t:r.settings?.ties||0,pf:pf(r),g,scores:[],allW:0,allN:0,recent:0,mean:0,sd:15}});
   D.weeks=await Promise.all(Array.from({length:D.regWeeks},(_,i)=>get(`${API}/league/${LEAGUE_ID}/matchups/${i+1}`).catch(()=>[])));
   buildMetrics();simulate();$("#sub").textContent=`${league.name||"LTE Dynasty"} · ${league.season} · Week ${D.week}`;nav();render();
  }catch(e){$("#app").innerHTML=`<div class="error"><b>Could not load LTE data.</b><br>${esc(e.message)}<br><span class="muted">Refresh the page and try again.</span></div>`}
@@ -80,13 +110,14 @@ function render(){
 }
 async function loadHistory(){
  $("#app").innerHTML=`<div class="loading">Following LTE's Sleeper league history…</div>`;
- try{let id=LEAGUE_ID,seasons=[],seen=new Set();for(let n=0;n<15&&id&&!seen.has(id);n++){seen.add(id);let l=await get(`${API}/league/${id}`),[u,r,b]=await Promise.all([get(`${API}/league/${id}/users`),get(`${API}/league/${id}/rosters`),get(`${API}/league/${id}/winners_bracket`).catch(()=>[])]),um=Object.fromEntries(u.map(x=>[x.user_id,x])),max=Math.max(0,...b.map(x=>x.r||0)),final=b.find(x=>x.r===max&&x.w),champ=final?r.find(x=>x.roster_id===final.w):null,cu=champ?um[champ.owner_id]:null,reg=Math.max(1,(l.settings?.playoff_week_start||15)-1),weeks=await Promise.all(Array.from({length:reg},(_,i)=>get(`${API}/league/${id}/matchups/${i+1}`).catch(()=>[])));seasons.push({season:l.season,name:l.name,champ:cu?.metadata?.team_name||cu?.display_name||"Not available",rosters:r,users:um,weeks});id=l.previous_league_id}D.history=seasons;render()}catch(e){D.history=[];render()}
+ try{let id=LEAGUE_ID,seasons=[],seen=new Set();for(let n=0;n<15&&id&&!seen.has(id);n++){seen.add(id);let l=await get(`${API}/league/${id}`),[u,r,b]=await Promise.all([get(`${API}/league/${id}/users`),get(`${API}/league/${id}/rosters`),get(`${API}/league/${id}/winners_bracket`).catch(()=>[])]),um=Object.fromEntries(u.map(x=>[x.user_id,x])),max=Math.max(0,...b.map(x=>x.r||0)),final=b.find(x=>x.r===max&&x.w),champ=final?r.find(x=>x.roster_id===final.w):null,cu=champ?um[champ.owner_id]:null,reg=Math.max(1,(l.settings?.playoff_week_start||15)-1),weeks=await Promise.all(Array.from({length:reg},(_,i)=>get(`${API}/league/${id}/matchups/${i+1}`).catch(()=>[])));seasons.push({season:l.season,name:l.name,champ:franchiseName(cu?.metadata?.team_name||cu?.display_name||"Not available"),rosters:r,users:um,weeks});id=l.previous_league_id}D.history=seasons;render()}catch(e){D.history=[];render()}
 }
 
-function canonicalName(s,r){
+function rawHistoricalName(s,r){
  let u=s.users[r.owner_id]||{};
  return u.metadata?.team_name||u.display_name||`Roster ${r.roster_id}`;
 }
+function canonicalName(s,r){return franchiseName(rawHistoricalName(s,r))}
 function h2hData(){
  let map={};
  for(let s of D.history||[]){
@@ -121,8 +152,12 @@ function headToHeadHTML(){
 }
 function historyHTML(){
  if(!D.history)return `<div class="loading">Loading history…</div>`;
- if(page==="History")return `<div class="hero"><div class="eyebrow">THE ARCHIVE</div><h1>LTE Dynasty History</h1><div class="muted">${D.history.length} Sleeper seasons discovered automatically.</div></div><div class="teamGrid">${D.history.map(s=>`<div class="team"><span class="pill">${esc(s.season)}</span><h3>${esc(s.champ)}</h3><div class="muted">League Champion</div></div>`).join("")}</div>`;
- let agg={};for(let s of D.history)for(let r of s.rosters){let u=s.users[r.owner_id]||{},k=r.owner_id||`r${r.roster_id}`,a=agg[k]??={name:u.metadata?.team_name||u.display_name||"Unknown",w:0,l:0,pf:0,seasons:0,titles:0};a.w+=r.settings?.wins||0;a.l+=r.settings?.losses||0;a.pf+=pf(r);a.seasons++}for(let s of D.history){let a=Object.values(agg).find(x=>x.name===s.champ);if(a)a.titles++}
+ if(page==="History"){let audit=registryAudit();return `<div class="hero"><div class="eyebrow">THE ARCHIVE</div><h1>LTE Dynasty History</h1><div class="muted">${D.history.length} Sleeper seasons discovered automatically.</div></div>
+ <div class="card wide" style="margin-bottom:14px"><h3 class="sectionTitle">Franchise Registry Audit</h3>
+ <div class="stat">${audit.length}</div><div class="kpi">Unmapped historical names</div>
+ ${audit.length?`<div style="margin-top:12px">${audit.map(x=>`<div style="padding:9px 0;border-bottom:1px solid #202b3a"><b>${esc(x.name)}</b><span class="muted"> · ${x.seasons.join(", ")}</span></div>`).join("")}</div>`:`<p class="up"><b>✓ All historical names are mapped to one of the 12 LTE franchises.</b></p>`}
+ </div><div class="teamGrid">${D.history.map(s=>`<div class="team"><span class="pill">${esc(s.season)}</span><h3>${esc(s.champ)}</h3><div class="muted">League Champion</div></div>`).join("")}</div>`}
+ let agg={};for(let s of D.history)for(let r of s.rosters){let name=canonicalName(s,r),k=normName(name),a=agg[k]??={name,w:0,l:0,pf:0,seasons:0,titles:0};a.w+=r.settings?.wins||0;a.l+=r.settings?.losses||0;a.pf+=pf(r);a.seasons++}for(let s of D.history){let a=Object.values(agg).find(x=>x.name===s.champ);if(a)a.titles++}
  let arr=Object.values(agg).sort((a,b)=>b.w-a.w||b.pf-a.pf);return `<div class="grid"><div class="card wide"><h3 class="sectionTitle">LTE Record Book</h3><p class="muted">Aggregated from the Sleeper seasons linked to the current league.</p><table class="table"><tr><th>Franchise / Owner</th><th>Seasons</th><th>Wins</th><th>Losses</th><th>PF</th><th>Titles</th></tr>${arr.map(a=>`<tr><td><b>${esc(a.name)}</b></td><td>${a.seasons}</td><td>${a.w}</td><td>${a.l}</td><td>${a.pf.toFixed(1)}</td><td>${a.titles}</td></tr>`).join("")}</table></div></div>`
 }
 load();
