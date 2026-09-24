@@ -29,12 +29,27 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 @media(max-width:900px){.mast,.oddsHero{grid-template-columns:1fr}.feature{min-height:350px}.sideStack{grid-template-columns:1fr 1fr;grid-template-rows:auto}.storyGrid{grid-template-columns:1fr 1fr}.rankItem{grid-template-columns:38px 1fr .55fr}.rankItem>*:nth-child(4),.rankItem>*:nth-child(5){display:none}}
 @media(max-width:600px){.feature{padding:24px;min-height:310px}.feature h1{font-size:48px;letter-spacing:-3px}.sideStack,.storyGrid{grid-template-columns:1fr}.story:first-child{grid-column:span 1}.spotlight strong{font-size:22px}.rankItem{padding:13px 2px}.prob{font-size:44px}}
 </style>
+
+<style>
+/* v4 living league layer */
+.raceRow{display:grid;grid-template-columns:42px 1.5fr .7fr .7fr .7fr;gap:14px;align-items:center;padding:17px 8px;border-bottom:1px solid var(--hair)}
+.seed{width:32px;height:32px;display:grid;place-items:center;border:1px solid #414a56;font-weight:950}.seed.in{background:var(--acid);color:#080a0d;border-color:var(--acid)}.seed.out{color:#69727e}
+.raceBar{height:5px;background:#242b34;margin-top:7px}.raceBar i{height:100%;display:block;background:var(--acid)}
+.awardsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.awardCard{min-height:230px;border:1px solid var(--hair);padding:22px;background:#10141a;display:flex;flex-direction:column;justify-content:space-between}.awardCard:first-child{grid-column:span 2;background:linear-gradient(135deg,#1b2216,#10140f)}.awardCard .trophy{font-size:42px;font-weight:1000;color:var(--acid);letter-spacing:-2px}.awardCard h3{font-size:24px;line-height:1.05;margin:8px 0}
+.trendWrap{overflow:auto}.trendChart{min-width:720px;height:280px;position:relative;border-left:1px solid #313943;border-bottom:1px solid #313943;margin:20px 8px 10px}.trendLine{position:absolute;height:2px;transform-origin:left center;background:#8993a0}.trendDot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--acid);transform:translate(-4px,-4px)}
+.threat{display:grid;grid-template-columns:1fr auto;gap:15px;padding:15px 0;border-bottom:1px solid var(--hair)}.threat strong{font-size:17px}.threat .gap{font-size:24px;font-weight:1000;color:var(--acid)}
+.historyMoment{padding:22px;border-left:3px solid var(--accent);background:#10141a}.historyMoment h3{font-size:27px;letter-spacing:-1px;margin:7px 0}
+.bannerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.banner{min-height:170px;background:linear-gradient(180deg,#2b2614,#11100c);border:1px solid #61572b;padding:18px;display:flex;flex-direction:column;justify-content:space-between}.banner .year{font-size:34px;font-weight:1000;color:#ffe47c}.banner .champName{font-size:16px;font-weight:900}
+.rivalryFeature{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;padding:24px;border:1px solid var(--hair);background:#10141a}.rivalryFeature .vs{font-size:12px;border:1px solid #444;padding:8px}.rivalryFeature h3{font-size:22px;margin:5px 0}
+.timelineSeason{display:grid;grid-template-columns:80px 1fr auto;gap:14px;padding:15px 0;border-bottom:1px solid var(--hair);align-items:center}.timelineSeason .yr{font-size:20px;font-weight:950}
+@media(max-width:760px){.awardsGrid{grid-template-columns:1fr}.awardCard:first-child{grid-column:span 1}.raceRow{grid-template-columns:35px 1fr .7fr}.raceRow>*:nth-child(4),.raceRow>*:nth-child(5){display:none}.rivalryFeature{grid-template-columns:1fr;text-align:left}.rivalryFeature .vs{width:max-content}}
+</style>
 </head>
 <body>
 <div class="shell">
 <div class="top"><div class="brand"><b>LTE DYNASTY HQ</b><span id="sub">Loading league intelligence…</span></div><div class="live">● LIVE SLEEPER DATA</div></div>
 <div class="nav" id="nav"></div><main class="main" id="app"><div class="loading">Building LTE Dynasty HQ…</div></main>
-<div class="foot">LTE Dynasty HQ v3.0 · Unofficial league analytics · Data via Sleeper</div>
+<div class="foot">LTE Dynasty HQ v4.0 · Unofficial league analytics · Data via Sleeper</div>
 </div>
 <script>
 const LEAGUE_ID="1335326900251271168", API="https://api.sleeper.app/v1", SIMS=12000;
@@ -69,11 +84,11 @@ function registryAudit(){
  return [...found.values()].map(x=>({name:x.name,seasons:[...x.seasons].sort()})).sort((a,b)=>a.name.localeCompare(b.name))
 }
 
-const pages=["HQ","League Pulse","Weekly","Power Rankings","Odds","Matchups","Franchises","League Records","Head-to-Head","History","Record Book"];
+const pages=["HQ","League Pulse","Weekly","Playoff Race","Awards","Power Rankings","Odds","Matchups","Franchises","League Records","Head-to-Head","History","Record Book"];
 const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function get(u){let r=await fetch(u);if(!r.ok)throw Error("Sleeper API "+r.status);return r.json()}
 function nav(){ $("#nav").innerHTML=pages.map(x=>`<button class="${x===page?"on":""}" onclick="go('${x}')">${x}</button>`).join("") }
-function go(x){page=x;nav(); if((x==="History"||x==="Record Book"||x==="Head-to-Head"||x==="League Records"||x==="Franchises"||x==="League Pulse")&&!D.history) loadHistory(); else render()}
+function go(x){page=x;nav(); if((x==="History"||x==="Record Book"||x==="Head-to-Head"||x==="League Records"||x==="Franchises"||x==="League Pulse"||x==="Awards"||x==="Playoff Race")&&!D.history) loadHistory(); else render()}
 function pf(r){return +(Number(r.settings?.fpts||0)+(Number(r.settings?.fpts_decimal||0)/100)).toFixed(2)}
 function games(t){return t.w+t.l+t.t}
 function pct(x){return (100*x).toFixed(x>.095?1:2)+"%"}
@@ -132,7 +147,7 @@ function weeklyData(){
 function weeklyHTML(){
  let x=weeklyData();if(!x.games.length)return `<div class="hero"><div class="eyebrow">THE LTE WEEKLY</div><h1>Weekly Newsletter</h1><div class="muted">The first issue will publish automatically after a completed week.</div></div>`;
  let headline=x.close&&x.close.margin<8?`${x.close.winner.name} survives the game of the week`:`${x.high.t.name} sets the pace in Week ${x.w}`;
- return `<div class="newsletter"><div style="display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #aaa;padding-bottom:10px"><b>THE LTE WEEKLY</b><span>2026 · WEEK ${x.w}</span></div><h1>${esc(headline)}</h1><p style="font-size:17px;line-height:1.65">Week ${x.w} delivered ${x.games.length} matchups with a league scoring average of <b>${x.avg.toFixed(1)}</b>. ${esc(x.high.t.name)} posted the week's top score at <b>${x.high.p.toFixed(2)}</b>, while the closest matchup was decided by only <b>${x.close.margin.toFixed(2)}</b> points.</p><div class="newsGrid"><div><h2>Week ${x.w} Scoreboard</h2>${x.games.sort((a,b)=>b.total-a.total).map(g=>`<div class="award"><b>${esc(g.a.name)}</b> ${g.ap.toFixed(2)} <span style="float:right">${g.bp.toFixed(2)} <b>${esc(g.b.name)}</b></span></div>`).join("")}<h2 style="margin-top:28px">Around the League</h2>${(()=>{let pr=power(),idx=Object.fromEntries(pr.map((t,i)=>[t.id,i])),ups=[...x.games].filter(g=>idx[g.winner.id]>idx[g.loser.id]).sort((a,b)=>(idx[b.winner.id]-idx[b.loser.id])-(idx[a.winner.id]-idx[a.loser.id]))[0];return ups?`<p><b>Upset Alert:</b> ${esc(ups.winner.name)} knocked off higher-rated ${esc(ups.loser.name)}.</p>`:""})()}<p><b>Game of the Week:</b> ${esc(x.close.winner.name)} over ${esc(x.close.loser.name)}, ${x.close.high.toFixed(2)}–${x.close.low.toFixed(2)}.</p><p><b>Statement Win:</b> ${esc(x.blow.winner.name)} delivered the largest margin of victory at ${x.blow.margin.toFixed(2)} points.</p><p><b>Median Watch:</b> Week ${x.w}'s median team score was ${x.median.toFixed(2)}.</p></div><aside><h2>Weekly Honors</h2><div class="award"><span class="muted">High Score</span><div class="bigNum">${x.high.p.toFixed(2)}</div><b>${esc(x.high.t.name)}</b></div><div class="award"><span class="muted">Closest Game</span><div class="bigNum">${x.close.margin.toFixed(2)}</div><b>${esc(x.close.winner.name)}</b></div><div class="award"><span class="muted">Biggest Blowout</span><div class="bigNum">${x.blow.margin.toFixed(2)}</div><b>${esc(x.blow.winner.name)}</b></div><div class="award"><span class="muted">Low Score</span><div class="bigNum">${x.low.p.toFixed(2)}</div><b>${esc(x.low.t.name)}</b></div></aside></div><p class="muted" style="margin-top:30px;border-top:1px solid #bbb;padding-top:15px">Generated automatically from official Sleeper results. New issue updates after each completed week.</p></div>`
+ return `<div class="newsletter"><div style="display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #aaa;padding-bottom:10px"><b>THE LTE WEEKLY</b><span>2026 · WEEK ${x.w}</span></div><h1>${esc(headline)}</h1><p style="font-size:17px;line-height:1.65">Week ${x.w} delivered ${x.games.length} matchups with a league scoring average of <b>${x.avg.toFixed(1)}</b>. ${esc(x.high.t.name)} posted the week's top score at <b>${x.high.p.toFixed(2)}</b>, while the closest matchup was decided by only <b>${x.close.margin.toFixed(2)}</b> points.</p><div class="newsGrid"><div><h2>Week ${x.w} Scoreboard</h2>${x.games.sort((a,b)=>b.total-a.total).map(g=>`<div class="award"><b>${esc(g.a.name)}</b> ${g.ap.toFixed(2)} <span style="float:right">${g.bp.toFixed(2)} <b>${esc(g.b.name)}</b></span></div>`).join("")}<h2 style="margin-top:28px">Around the League</h2>${(()=>{let pr=power(),idx=Object.fromEntries(pr.map((t,i)=>[t.id,i])),ups=[...x.games].filter(g=>idx[g.winner.id]>idx[g.loser.id]).sort((a,b)=>(idx[b.winner.id]-idx[b.loser.id])-(idx[a.winner.id]-idx[a.loser.id]))[0];return ups?`<p><b>Upset Alert:</b> ${esc(ups.winner.name)} knocked off higher-rated ${esc(ups.loser.name)}.</p>`:""})()}<p><b>Game of the Week:</b> ${esc(x.close.winner.name)} over ${esc(x.close.loser.name)}, ${x.close.high.toFixed(2)}–${x.close.low.toFixed(2)}.</p><p><b>Statement Win:</b> ${esc(x.blow.winner.name)} delivered the largest margin of victory at ${x.blow.margin.toFixed(2)} points.</p><p><b>Median Watch:</b> Week ${x.w}'s median team score was ${x.median.toFixed(2)}.</p><p><b>Power Board:</b> ${esc(power()[0].name)} exits the week ranked No. 1 by the blind LTE model.</p><p><b>Title Market:</b> ${(()=>{let t=[...D.teams].sort((a,b)=>D.odds[b.id].c-D.odds[a.id].c)[0];return `${esc(t.name)} leads at ${pct(D.odds[t.id].c/SIMS)}`})()}.</p></div><aside><h2>Weekly Honors</h2><div class="award"><span class="muted">High Score</span><div class="bigNum">${x.high.p.toFixed(2)}</div><b>${esc(x.high.t.name)}</b></div><div class="award"><span class="muted">Closest Game</span><div class="bigNum">${x.close.margin.toFixed(2)}</div><b>${esc(x.close.winner.name)}</b></div><div class="award"><span class="muted">Biggest Blowout</span><div class="bigNum">${x.blow.margin.toFixed(2)}</div><b>${esc(x.blow.winner.name)}</b></div><div class="award"><span class="muted">Low Score</span><div class="bigNum">${x.low.p.toFixed(2)}</div><b>${esc(x.low.t.name)}</b></div></aside></div><p class="muted" style="margin-top:30px;border-top:1px solid #bbb;padding-top:15px">Generated automatically from official Sleeper results. New issue updates after each completed week.</p></div>`
 }
 function dashboardMetrics(){
  let x=weeklyData(),hi=[...D.teams].sort((a,b)=>b.mean-a.mean)[0],lucky=[...D.teams].sort((a,b)=>b.luck-a.luck)[0];
@@ -157,7 +172,7 @@ function leagueRecordsHTML(){
 }
 function franchiseProfile(name){
  let t=D.teams.find(x=>x.name===name),games=historicalGames().filter(x=>x.a===name||x.b===name),w=games.filter(x=>x.winner===name).length,l=games.length-w,pf=games.reduce((z,x)=>z+(x.a===name?x.ap:x.bp),0),pa=games.reduce((z,x)=>z+(x.a===name?x.bp:x.ap),0),best=[...games].map(x=>({p:x.a===name?x.ap:x.bp,x})).sort((a,b)=>b.p-a.p)[0],titles=(D.history||[]).filter(x=>x.champ===name).map(x=>x.season),aliases=FRANCHISE_REGISTRY.find(x=>x.name===name)?.aliases||[name],pairs=h2hData().filter(x=>x.a===name||x.b===name),rival=pairs.sort((a,b)=>b.games.length-a.games.length)[0];
- return `<div class="hero profileHero"><div><div class="eyebrow">FRANCHISE DOSSIER</div><h1>${esc(name)}</h1><div class="muted">${esc(aliases.filter(x=>x!==name).join(" · ")||"Original franchise identity")}</div></div><div><div class="kpi">Championships</div><div class="stat">${titles.length}</div><div class="muted">${titles.join(", ")||"—"}</div></div></div><div class="recordGrid"><div class="recordTile"><div class="kpi">All-Time Record</div><div class="value">${w}-${l}</div><div class="muted">${pct(w/Math.max(1,w+l))} win rate</div></div><div class="recordTile"><div class="kpi">All-Time PF</div><div class="value">${pf.toFixed(1)}</div><div class="muted">${pa.toFixed(1)} points allowed</div></div><div class="recordTile"><div class="kpi">Franchise High</div><div class="value">${best?best.p.toFixed(2):"—"}</div><div class="muted">${best?`${best.x.season} W${best.x.week}`:"—"}</div></div><div class="recordTile"><div class="kpi">Most-Played Rival</div><div class="value" style="font-size:18px">${esc(rival?(rival.a===name?rival.b:rival.a):"—")}</div><div class="muted">${rival?rival.games.length:0} meetings</div></div></div>${t?`<div class="card wide"><h3 class="sectionTitle">2026 Intelligence</h3><div class="metricRow"><div class="metric"><div class="kpi">Record</div><strong>${t.w}-${t.l}</strong></div><div class="metric"><div class="kpi">Power Rating</div><strong>${t.power.toFixed(1)}</strong></div><div class="metric"><div class="kpi">Expected Wins</div><strong>${t.expWins.toFixed(2)}</strong></div><div class="metric"><div class="kpi">Title Odds</div><strong>${pct(D.odds[t.id].c/SIMS)}</strong></div></div></div>`:""}`
+ return `<div class="hero profileHero"><div><div class="eyebrow">FRANCHISE DOSSIER</div><h1>${esc(name)}</h1><div class="muted">${esc(aliases.filter(x=>x!==name).join(" · ")||"Original franchise identity")}</div></div><div><div class="kpi">Championships</div><div class="stat">${titles.length}</div><div class="muted">${titles.join(", ")||"—"}</div></div></div><div class="recordGrid"><div class="recordTile"><div class="kpi">All-Time Record</div><div class="value">${w}-${l}</div><div class="muted">${pct(w/Math.max(1,w+l))} win rate</div></div><div class="recordTile"><div class="kpi">All-Time PF</div><div class="value">${pf.toFixed(1)}</div><div class="muted">${pa.toFixed(1)} points allowed</div></div><div class="recordTile"><div class="kpi">Franchise High</div><div class="value">${best?best.p.toFixed(2):"—"}</div><div class="muted">${best?`${best.x.season} W${best.x.week}`:"—"}</div></div><div class="recordTile"><div class="kpi">Most-Played Rival</div><div class="value" style="font-size:18px">${esc(rival?(rival.a===name?rival.b:rival.a):"—")}</div><div class="muted">${rival?rival.games.length:0} meetings</div></div></div>${t?`<div class="card wide"><h3 class="sectionTitle">2026 Intelligence</h3><div class="metricRow"><div class="metric"><div class="kpi">Record</div><strong>${t.w}-${t.l}</strong></div><div class="metric"><div class="kpi">Power Rating</div><strong>${t.power.toFixed(1)}</strong></div><div class="metric"><div class="kpi">Expected Wins</div><strong>${t.expWins.toFixed(2)}</strong></div><div class="metric"><div class="kpi">Title Odds</div><strong>${pct(D.odds[t.id].c/SIMS)}</strong></div></div></div>`:""}${franchiseTimeline(name)}`
 }
 function openFranchise(name){if(!D.history){page="Franchises";loadHistory();return}$("#app").innerHTML=franchiseProfile(name);window.scrollTo({top:0,behavior:"smooth"})}
 function powerAtWeek(w){
@@ -198,10 +213,58 @@ function hqV3(){
  <div class="sectionHead"><h2>Top of the Board</h2><span>Model power ranking</span></div><div class="card wide rankList">${power().slice(0,6).map((t,i)=>`<div class="rankItem"><div class="n">${String(i+1).padStart(2,"0")}</div><div><div class="teamName">${esc(t.name)}</div><div class="muted">${t.w}-${t.l} · ${t.recent.toFixed(1)} recent avg</div></div><div><div class="kpi">Rating</div><b>${t.power.toFixed(1)}</b></div><div><div class="kpi">Luck</div><b>${t.luck>=0?"+":""}${t.luck.toFixed(2)}</b></div><div><div class="kpi">Title</div><b>${pct(D.odds[t.id].c/SIMS)}</b></div></div>`).join("")}</div>`
 }
 
+
+function seasonTrendData(){
+ let completed=Math.min(D.regWeeks,Math.max(0,D.week-1)), out={};
+ for(let t of D.teams){let vals=[];for(let w=1;w<=completed;w++){let scores=[];for(let i=0;i<w;i++){let m=(D.weeks[i]||[]).find(x=>x.roster_id===t.id);if(m&&m.points>0)scores.push(+m.points)}vals.push(scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:0)}out[t.id]=vals}return out
+}
+function trendHTML(){
+ let td=seasonTrendData(),teams=power().slice(0,6),n=Math.max(1,...Object.values(td).map(x=>x.length)),all=Object.values(td).flat().filter(Boolean),mn=Math.min(...all,80),mx=Math.max(...all,140),W=680,H=230;
+ let paths=teams.map((t,ti)=>{let a=td[t.id]||[],pts=a.map((v,i)=>({x:(i/(Math.max(1,n-1)))*W,y:H-((v-mn)/Math.max(1,mx-mn))*H}));let seg=pts.slice(1).map((p,i)=>{let q=pts[i],dx=p.x-q.x,dy=p.y-q.y,len=Math.hypot(dx,dy),ang=Math.atan2(dy,dx)*180/Math.PI;return `<i class="trendLine" style="left:${q.x}px;top:${q.y}px;width:${len}px;transform:rotate(${ang}deg);opacity:${ti===0?1:.25}"></i>`}).join("");let dots=pts.map((p,i)=>i===pts.length-1?`<i class="trendDot" style="left:${p.x}px;top:${p.y}px;${ti?'background:#737d89':''}"></i>`:"").join("");return seg+dots}).join("");
+ return `<div class="card wide"><div class="sectionHead" style="margin-top:0"><h2>Season Scoring Trend</h2><span>Running average · top six current power teams</span></div><div class="trendWrap"><div class="trendChart">${paths}</div></div><div class="seasonStrip">${teams.map((t,i)=>`<div class="seasonChip"><span class="badge">${i+1}</span><b>${esc(t.name)}</b><span class="muted">${(td[t.id]?.at(-1)||0).toFixed(1)} avg</span></div>`).join("")}</div></div>`
+}
+function playoffRaceHTML(){
+ let st=sorted(),n=Math.min(D.league.settings?.playoff_teams||7,D.teams.length);
+ return `<div class="hero"><div class="eyebrow">THE RUN-IN</div><h1>Playoff Race</h1><div class="muted">${n} tickets. ${Math.max(0,D.regWeeks-D.week+1)} regular-season weeks remain on the current schedule.</div></div><div class="card wide">${st.map((t,i)=>{let o=D.odds[t.id],pin=o.p/SIMS;return `<div class="raceRow"><div class="seed ${i<n?"in":"out"}">${i+1}</div><div><b>${esc(t.name)}</b><div class="raceBar"><i style="width:${100*pin}%"></i></div></div><div><div class="kpi">Record</div><b>${t.w}-${t.l}</b></div><div><div class="kpi">Playoffs</div><b>${pct(pin)}</b></div><div><div class="kpi">#1 Seed</div><b>${pct(o.s/SIMS)}</b></div></div>`}).join("")}</div><div class="sectionHead"><h2>Race Notes</h2><span>Simulation-driven</span></div><div class="storyGrid">${st.slice(0,3).map((t,i)=>`<div class="story"><div class="eyebrow">${i===0?"PACE SETTER":i===1?"IN PURSUIT":"CONTENDER"}</div><h3>${esc(t.name)}</h3><div class="muted">${pct(D.odds[t.id].p/SIMS)} playoff probability · ${pct(D.odds[t.id].c/SIMS)} title probability.</div></div>`).join("")}</div>`
+}
+function awardsHTML(){
+ let title=[...D.teams].sort((a,b)=>D.odds[b.id].c-D.odds[a.id].c)[0],mvp=[...D.teams].sort((a,b)=>b.power-a.power)[0],scorer=[...D.teams].sort((a,b)=>(b.g?b.pf/b.g:0)-(a.g?a.pf/a.g:0))[0],hot=[...D.teams].sort((a,b)=>b.recent-a.recent)[0],lucky=[...D.teams].sort((a,b)=>b.luck-a.luck)[0],hard=[...D.teams].sort((a,b)=>a.luck-b.luck)[0];
+ let a=[["TEAM OF THE YEAR RACE",mvp,"Power rating",mvp.power.toFixed(1)],["SCORING KING",scorer,"Points per game",games(scorer)?(scorer.pf/games(scorer)).toFixed(1):"—"],["TITLE FAVORITE",title,"Championship probability",pct(D.odds[title.id].c/SIMS)],["HOTTEST TEAM",hot,"Last-three average",hot.recent.toFixed(1)],["FORTUNE'S FAVORITE",lucky,"Wins above expected",(lucky.luck>=0?"+":"")+lucky.luck.toFixed(2)],["HARD-LUCK AWARD",hard,"Wins vs expected",hard.luck.toFixed(2)]];
+ return `<div class="hero"><div class="eyebrow">2026 AWARDS WATCH</div><h1>The Race for LTE Honors</h1><div class="muted">A live, data-driven awards board. These are statistical categories—not commissioner selections.</div></div><div class="awardsGrid">${a.map((x,i)=>`<div class="awardCard"><div><div class="eyebrow">${x[0]}</div><h3>${esc(x[1].name)}</h3></div><div><div class="trophy">${x[3]}</div><div class="muted">${x[2]}</div></div></div>`).join("")}</div>`
+}
+function historyWeekHTML(){
+ if(!D.history)return "";
+ let wk=Math.max(1,D.week),g=historicalGames().filter(x=>x.week===wk&&x.season<+D.league.season);
+ if(!g.length)return "";
+ let best=[...g].sort((a,b)=>b.winScore-a.winScore)[0],close=[...g].sort((a,b)=>a.margin-b.margin)[0];
+ return `<div class="sectionHead"><h2>This Week in LTE History</h2><span>Week ${wk} through the archive</span></div><div class="storyGrid"><div class="story"><div class="eyebrow">THROWBACK PERFORMANCE</div><h3>${esc(best.winner)} scored ${best.winScore.toFixed(2)}</h3><div class="muted">${best.season} Week ${wk} · vs ${esc(best.loser)}</div></div><div class="story"><div class="eyebrow">PHOTO FINISH</div><h3>${esc(close.winner)} by ${close.margin.toFixed(2)}</h3><div class="muted">${close.season} Week ${wk} · ${close.winScore.toFixed(2)}–${close.loseScore.toFixed(2)}</div></div></div>`
+}
+function gameOfYearHTML(){
+ let g=historicalGames().filter(x=>x.season===+D.league.season&&x.week<D.week);if(!g.length)return "";
+ let ranked=[...g].sort((a,b)=>(a.margin-b.margin)||(b.total-a.total)).slice(0,5);
+ return `<div class="sectionHead"><h2>Game of the Year Board</h2><span>Closest finishes, with scoring as tiebreaker</span></div><div class="card wide">${ranked.map((x,i)=>`<div class="rankItem"><div class="n">${i+1}</div><div><div class="teamName">${esc(x.winner)} vs ${esc(x.loser)}</div><div class="muted">Week ${x.week} · ${x.winScore.toFixed(2)}–${x.loseScore.toFixed(2)}</div></div><div><div class="kpi">Margin</div><b>${x.margin.toFixed(2)}</b></div><div><div class="kpi">Combined</div><b>${x.total.toFixed(2)}</b></div><div><span class="badge">${x.type}</span></div></div>`).join("")}</div>`
+}
+function recordsThreatHTML(){
+ if(!D.history)return "";let r=recordData(),cur=D.teams.flatMap(t=>t.scores.map((p,i)=>({name:t.name,p,week:i+1}))).sort((a,b)=>b.p-a.p)[0];if(!r||!cur)return "";
+ let gap=r.hi.p-cur.p;
+ return `<div class="sectionHead"><h2>Record Watch</h2><span>History within reach</span></div><div class="card wide"><div class="threat"><div><strong>Single-game scoring record</strong><div class="muted">${esc(r.hi.name)} · ${r.hi.p.toFixed(2)} · ${r.hi.season} W${r.hi.week}</div></div><div class="gap">${gap>0?gap.toFixed(2)+" pts away":"BROKEN"}</div></div><div class="threat"><div><strong>2026 season high</strong><div class="muted">${esc(cur.name)} · Week ${cur.week}</div></div><div class="gap">${cur.p.toFixed(2)}</div></div></div>`
+}
+function championshipBannersHTML(){
+ if(!D.history)return "";let champs=D.history.filter(x=>x.champ&&x.champ!=="Not available");
+ return `<div class="sectionHead"><h2>Championship Hall</h2><span>LTE title banners</span></div><div class="bannerGrid">${champs.map(x=>`<div class="banner"><div><span class="badge champ">Champion</span><div class="year">${esc(x.season)}</div></div><div class="champName">${esc(x.champ)}</div></div>`).join("")}</div>`
+}
+function franchiseTimeline(name){
+ if(!D.history)return "";let rows=[];
+ for(let s of [...D.history].sort((a,b)=>a.season-b.season)){let r=s.rosters.find(r=>canonicalName(s,r)===name);if(!r)continue;rows.push({season:s.season,w:r.settings?.wins||0,l:r.settings?.losses||0,pf:pf(r),champ:s.champ===name,raw:rawHistoricalName(s,r)})}
+ return `<div class="sectionHead"><h2>Franchise Timeline</h2><span>Season by season</span></div><div class="card wide">${rows.map(x=>`<div class="timelineSeason"><div class="yr">${x.season}</div><div><b>${esc(x.raw)}</b><div class="muted">${x.w}-${x.l} · ${x.pf.toFixed(1)} PF</div></div><div>${x.champ?'<span class="badge champ">Champion</span>':'<span class="badge">Season</span>'}</div></div>`).join("")}</div>`
+}
+
 function render(){
  let h="";
- if(page==="HQ")h=hqV3();
- if(page==="League Pulse")h=leaguePulseHTML();
+ if(page==="HQ")h=hqV3()+trendHTML()+(D.history?historyWeekHTML():"");
+ if(page==="League Pulse")h=leaguePulseHTML()+historyWeekHTML()+gameOfYearHTML()+recordsThreatHTML();
+ if(page==="Playoff Race")h=playoffRaceHTML();
+ if(page==="Awards")h=awardsHTML();
  if(page==="Weekly")h=weeklyHTML();
  if(page==="Power Rankings")h=`<div class="hero"><div class="eyebrow">BLIND MODEL</div><h1>Power Rankings</h1><div class="muted">35% record · 30% scoring · 20% all-play · 15% recent form. Franchise names are attached after calculation.</div></div><div class="card wide rankList">${power().map((t,i)=>{let mv=powerMovement(t);return `<div class="rankItem"><div class="n">${String(i+1).padStart(2,"0")}</div><div><div class="teamName">${esc(t.name)}</div><div class="muted">${mv>0?`▲ ${mv} this week`:mv<0?`▼ ${Math.abs(mv)} this week`:"No movement"}</div></div><div><div class="kpi">Rating</div><b>${t.power.toFixed(1)}</b></div><div><div class="kpi">All-Play</div><b>${t.allN?pct(t.allW/t.allN):"—"}</b></div><div><div class="kpi">xW / Luck</div><b>${t.expWins.toFixed(2)} · ${t.luck>=0?"+":""}${t.luck.toFixed(2)}</b></div></div>`}).join("")}</div>`;
  if(page==="Odds")h=`<div class="grid">${oddsTable()}</div>`;
@@ -209,7 +272,7 @@ function render(){
  if(page==="Franchises")h=`<div class="hero"><div class="eyebrow">THE 12</div><h1>LTE Franchises</h1><div class="muted">Current-season franchise profiles and analytics.</div></div><div class="teamGrid">${power().map((t,i)=>{let mv=powerMovement(t);return `<div class="team clickable" onclick="openFranchise(${JSON.stringify(t.name).replace(/"/g,"&quot;")})"><span class="pill">Power #${i+1}</span><span class="rankMove ${mv>0?"up":mv<0?"down":""}" style="float:right">${mv>0?"▲ "+mv:mv<0?"▼ "+Math.abs(mv):"—"}</span><h3>${esc(t.name)}</h3><div class="muted">${esc(t.display)}</div><p><b>${t.w}-${t.l}</b> · ${t.pf.toFixed(1)} PF</p><div class="kpi">Championship probability</div><div class="stat">${pct(D.odds[t.id].c/SIMS)}</div></div>`}).join("")}</div>`;
  if(page==="League Records")h=leagueRecordsHTML();
  if(page==="Head-to-Head")h=headToHeadHTML();
- if(page==="History"||page==="Record Book")h=historyHTML();
+ if(page==="History"||page==="Record Book")h=historyHTML()+(page==="History"?championshipBannersHTML():"");
  $("#app").innerHTML=h
 }
 async function loadHistory(){
@@ -241,7 +304,7 @@ function h2hData(){
 function headToHeadHTML(){
  if(!D.history)return `<div class="loading">Building LTE rivalry database…</div>`;
  let pairs=h2hData(), names=[...new Set(pairs.flatMap(x=>[x.a,x.b]))].sort();
- return `<div class="hero"><div class="eyebrow">RIVALRY DATABASE</div><h1>Head-to-Head</h1><div class="muted">Complete rivalry history reconstructed from linked Sleeper seasons, including playoff meetings.</div></div>
+ let top=[...pairs].sort((a,b)=>b.games.length-a.games.length)[0],feature="";if(top){let aw=0,bw=0;for(let g of top.games){let xa=g.an===top.a?g.as:g.bs,xb=g.an===top.a?g.bs:g.as;if(xa>xb)aw++;else if(xb>xa)bw++}feature=`<div class="rivalryFeature"><div><div class="kpi">Most-Played Rivalry</div><h3>${esc(top.a)}</h3><div class="muted">${aw} wins</div></div><div class="vs">${top.games.length} MEETINGS</div><div class="right"><div class="kpi">Series</div><h3>${esc(top.b)}</h3><div class="muted">${bw} wins</div></div></div>`}return `<div class="hero"><div class="eyebrow">RIVALRY DATABASE</div><h1>Head-to-Head</h1><div class="muted">Complete rivalry history reconstructed from linked Sleeper seasons, including playoff meetings.</div></div>${feature}
  <div class="card wide"><h3 class="sectionTitle">All-Time Rivalry Records</h3>
  <table class="table"><tr><th>Matchup</th><th>Meetings</th><th>Series</th><th>PF</th><th>Point Diff</th><th>Last Meeting</th></tr>
  ${pairs.sort((x,y)=>y.games.length-x.games.length).map(x=>{
