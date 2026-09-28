@@ -46,7 +46,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 </style>
 
 <style>
-/* LTE Dynasty HQ v10.1.3 Theme QA — broadcast graphics system */
+/* LTE Dynasty HQ v10.1.4 Theme QA — broadcast graphics system */
 :root{--v5blue:#66a7ff;--v5cyan:#65f0df;--v5gold:#ffd86b;--v5pink:#ff769d}
 body{background:#07090c}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(circle at 15% 5%,rgba(102,167,255,.12),transparent 28%),radial-gradient(circle at 85% 25%,rgba(216,255,62,.07),transparent 24%)}
@@ -163,7 +163,7 @@ html[data-theme="light"] .navMenu{background:rgba(255,254,250,.99);border-color:
 </style>
 
 <style>
-/* v10.1.3 theme QA patch */
+/* v10.1.4 theme QA patch */
 .topActions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
 html[data-theme="light"] body,html[data-theme="light"] #app,html[data-theme="light"] .main{color:#111318}
 html[data-theme="light"] .feature,html[data-theme="light"] .spotlight:not(.acid),html[data-theme="light"] .story,html[data-theme="light"] .seasonChip,
@@ -201,7 +201,7 @@ html[data-theme="light"] .live{color:#176b4b!important;border-color:#7caf99!impo
 </style>
 
 <style>
-/* v10.1.3 Sleeper league-specific team photo patch */
+/* v10.1.4 Sleeper league-specific team photo patch */
 .teamAvatar{object-fit:cover;background:var(--theme-surface2)}
 .inlineSleeperAvatar{display:inline-flex;vertical-align:middle;margin-right:8px}
 .scoreBox .inlineSleeperAvatar{margin-bottom:7px}
@@ -209,7 +209,7 @@ html[data-theme="light"] .live{color:#176b4b!important;border-color:#7caf99!impo
 </style>
 
 <style>
-/* v10.1.3 deployment repair: visible theme control + robust Sleeper imagery */
+/* v10.1.4 deployment repair: visible theme control + robust Sleeper imagery */
 .topActions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
 #themeMount{display:block;position:relative;z-index:30}
 .themeToggle{display:inline-flex!important;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:8px 11px;border:1px solid var(--theme-line,#303844);background:var(--theme-surface,#0f1319);color:var(--theme-text,#f5f3ee);border-radius:999px;cursor:pointer;font-weight:850;font-size:11px;white-space:nowrap}
@@ -280,7 +280,7 @@ function normal(mean,sd){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.ra
 async function load(){
  try{
   const [league,state,users,rosters]=await Promise.all([get(`${API}/league/${LEAGUE_ID}`),get(`${API}/state/nfl`),get(`${API}/league/${LEAGUE_ID}/users`),get(`${API}/league/${LEAGUE_ID}/rosters`)]);
-  D.league=league;D.state=state;D.week=Math.max(1,state.week||1);D.regWeeks=Math.max(1,(league.settings?.playoff_week_start||15)-1);
+  D.league=league;D.state=state;D.users=users;D.rosters=rosters;D.week=Math.max(1,state.week||1);D.regWeeks=Math.max(1,(league.settings?.playoff_week_start||15)-1);
   const um=Object.fromEntries(users.map(u=>[u.user_id,u]));
   D.teams=rosters.map(r=>{let u=um[r.owner_id]||{},g=(r.settings?.wins||0)+(r.settings?.losses||0)+(r.settings?.ties||0);return{id:r.roster_id,owner:r.owner_id,name:franchiseName(u.metadata?.team_name||u.display_name||`Roster ${r.roster_id}`),display:u.display_name||"",w:r.settings?.wins||0,l:r.settings?.losses||0,t:r.settings?.ties||0,pf:pf(r),g,scores:[],allW:0,allN:0,recent:0,mean:0,sd:15}});
   D.weeks=await Promise.all(Array.from({length:D.regWeeks},(_,i)=>get(`${API}/league/${LEAGUE_ID}/matchups/${i+1}`).catch(()=>[])));
@@ -609,6 +609,7 @@ function themeIcon(){
 }
 function themeToggleHTML(){let light=document.documentElement.dataset.theme==="light";return `<button class="themeToggle" onclick="toggleTheme()" aria-label="Switch to ${light?'dark':'light'} mode">${themeIcon()}<span>${light?'Dark':'Light'} mode</span></button>`}
 function toggleTheme(){let next=document.documentElement.dataset.theme==="light"?"dark":"light";document.documentElement.dataset.theme=next;try{localStorage.setItem("lte-theme",next)}catch(e){};document.querySelectorAll(".themeToggle").forEach(x=>x.outerHTML=themeToggleHTML());mountThemeToggle()}
+// v10.1.4: persist live Sleeper users/rosters for team-image resolution.
 function sleeperUserForTeam(t){
  if(!t)return null;
  let r=(D.rosters||[]).find(x=>x.roster_id===t.id);
