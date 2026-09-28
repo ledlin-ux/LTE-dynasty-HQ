@@ -46,7 +46,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 </style>
 
 <style>
-/* LTE Dynasty HQ v6.0 — broadcast graphics system */
+/* LTE Dynasty HQ v7.0 — broadcast graphics system */
 :root{--v5blue:#66a7ff;--v5cyan:#65f0df;--v5gold:#ffd86b;--v5pink:#ff769d}
 body{background:#07090c}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(circle at 15% 5%,rgba(102,167,255,.12),transparent 28%),radial-gradient(circle at 85% 25%,rgba(216,255,62,.07),transparent 24%)}
@@ -69,7 +69,7 @@ body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;back
 </style>
 
 <style>
-/* LTE Dynasty HQ v6.0 — agency-grade sports product */
+/* LTE Dynasty HQ v7.0 — agency-grade sports product */
 :root{--paper:#f4f1e9;--signal:#dfff43;--electric:#79a9ff;--hot:#ff6f61;--night:#07090c;--glass:rgba(15,18,23,.78)}
 body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--night);letter-spacing:-.015em}
 body:before{background:radial-gradient(900px 620px at 78% -12%,rgba(121,169,255,.16),transparent 68%),radial-gradient(760px 540px at -8% 32%,rgba(223,255,67,.055),transparent 70%)}
@@ -94,12 +94,19 @@ body:before{background:radial-gradient(900px 620px at 78% -12%,rgba(121,169,255,
 @media(max-width:760px){.top{padding:16px 14px}.brand span{margin-left:55px}.main{padding:12px 12px 92px}.nav{position:fixed;z-index:30;top:auto;bottom:0;left:0;right:0;padding:8px 8px calc(8px + env(safe-area-inset-bottom));border-top:1px solid #2a313a;border-bottom:0;justify-content:flex-start;background:rgba(7,9,12,.94);backdrop-filter:blur(22px)}.nav button{font-size:9px;padding:10px 12px}.broadcastHero{min-height:540px;border-radius:18px;grid-template-columns:1fr}.broadcastCopy{padding:34px 24px}.broadcastCopy:before{left:24px;top:20px}.broadcastCopy h1{font-size:58px;letter-spacing:-4px;margin-top:45px}.broadcastGraphic{min-height:300px}.orb{width:245px;height:245px}.orbText b{font-size:48px}.visualCard,.visualCard.w8,.visualCard.w6{grid-column:span 12;border-radius:16px}.matchupPoster{border-radius:18px}.pageIntro h1{font-size:55px;letter-spacing:-3.5px}.newsletter{border-radius:14px}.sectionHead h2{font-size:23px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
-</head>
+
+<style>
+/* LTE Dynasty HQ v7.0 — Rivalry Center */
+.h2hHero{padding:42px;border:1px solid #2a3038;background:linear-gradient(135deg,#10141a,#080a0d);margin-bottom:14px}.h2hHero h1{font-size:clamp(48px,7vw,92px);line-height:.85;letter-spacing:-5px;text-transform:uppercase;margin:10px 0}.h2hControls{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end;padding:18px;background:#0e1116;border:1px solid #282e36;margin-bottom:14px}.h2hControls label{display:block;font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:#89939f;margin-bottom:7px;font-weight:900}.h2hControls select{width:100%;background:#151a21;color:#fff;border:1px solid #333b46;padding:13px 14px;border-radius:2px}.h2hVs{font-size:11px;font-weight:1000;letter-spacing:1.5px;padding:13px;color:var(--acid)}.seriesHero{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;padding:32px;border:1px solid #2d343e;background:linear-gradient(120deg,#111823,#0c0f13 48%,#17130d);margin-bottom:14px}.seriesSide h2{font-size:clamp(25px,4vw,48px);letter-spacing:-2px;line-height:.95;margin:8px 0}.seriesSide.right{text-align:right}.seriesScore{text-align:center;min-width:150px}.seriesScore strong{display:block;font-size:54px;letter-spacing:-4px}.seriesScore span{font-size:9px;color:#8d97a4;text-transform:uppercase;letter-spacing:1.3px}.h2hStats{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px}.h2hStat{padding:16px;background:#0f1318;border:1px solid #272e37}.h2hStat b{display:block;font-size:22px;margin-top:5px}.h2hStat span{font-size:9px;color:#89939f;text-transform:uppercase;letter-spacing:1px}.gameLog{display:grid;gap:0}.gameRow{display:grid;grid-template-columns:75px 1fr 90px 1fr 90px;gap:12px;align-items:center;padding:14px 4px;border-bottom:1px solid #242a32}.gameRow .winner{color:var(--acid)}.gameRow .gscore{text-align:center;font-weight:1000;font-size:18px}.rivalryDirectory{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.rivalryCard{padding:18px;border:1px solid #272e37;background:#0e1217;cursor:pointer;transition:.2s}.rivalryCard:hover{border-color:#687381;transform:translateY(-2px)}.rivalryCard h3{font-size:17px;margin:7px 0}.rivalryCard .record{font-size:25px;font-weight:1000;letter-spacing:-1px}.rivalryLeaders{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.rivalryLeader{padding:20px;border:1px solid #29313a;background:#10141a}.rivalryLeader strong{display:block;font-size:22px;line-height:1.05;margin:8px 0}.rivalryLeader.acid{background:var(--acid);color:#090b0e}.rivalryLeader.acid .muted,.rivalryLeader.acid .kpi{color:#46501d}
+@media(max-width:900px){.h2hStats{grid-template-columns:repeat(3,1fr)}.rivalryDirectory{grid-template-columns:repeat(2,1fr)}.rivalryLeaders{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.h2hHero{padding:28px 20px}.h2hHero h1{letter-spacing:-3px}.h2hControls{grid-template-columns:1fr}.h2hVs{display:none}.seriesHero{grid-template-columns:1fr}.seriesSide.right{text-align:left}.seriesScore{text-align:left}.h2hStats{grid-template-columns:repeat(2,1fr)}.rivalryDirectory,.rivalryLeaders{grid-template-columns:1fr}.gameRow{grid-template-columns:55px 1fr 70px}.gameRow>*:nth-child(4),.gameRow>*:nth-child(5){display:none}}
+</style>
+\n<style>\n/* LTE Dynasty HQ v7.0 — Intelligence Network */\n:root{--signal:#dfff43;--electric:#72a7ff;--violet7:#9d83ff;--ember:#ff835f}\n.v7Marquee{display:flex;gap:0;overflow:auto;border:1px solid #2b323c;background:#0a0d11;margin-bottom:16px}.v7Marquee>div{min-width:220px;padding:14px 17px;border-right:1px solid #272e37}.v7Marquee b{display:block;font-size:16px;margin-top:4px}.v7Marquee span{font-size:9px;text-transform:uppercase;letter-spacing:1.2px;color:#7f8996}\n.labHero{position:relative;overflow:hidden;padding:50px;border:1px solid #303844;background:radial-gradient(circle at 82% 20%,rgba(114,167,255,.18),transparent 30%),linear-gradient(135deg,#111821,#090b0f);margin-bottom:14px}.labHero:after{content:'07';position:absolute;right:2%;bottom:-42px;font-size:230px;font-weight:1000;letter-spacing:-20px;color:#ffffff04}.labHero h1{font-size:clamp(52px,8vw,108px);line-height:.8;letter-spacing:-6px;text-transform:uppercase;margin:12px 0}.labHero p{max-width:720px;color:#aab3bf;font-size:16px;line-height:1.6}\n.labGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.labCard{grid-column:span 4;min-height:235px;padding:24px;border:1px solid #29313b;background:#0f1318;position:relative;overflow:hidden}.labCard.w6{grid-column:span 6}.labCard.w8{grid-column:span 8}.labCard.acid{background:var(--signal);color:#090b0e}.labCard.acid .muted,.labCard.acid .kpi{color:#49531d}.labCard h3{font-size:25px;line-height:1.02;letter-spacing:-1.2px;margin:9px 0}.labBig{font-size:58px;line-height:.9;font-weight:1000;letter-spacing:-3px;margin:12px 0}.leaderRows{margin-top:12px}.leaderRow{display:grid;grid-template-columns:35px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #ffffff10}.leaderRow .pos{font-size:20px;font-weight:1000;color:#66717e}.leaderRow:first-child .pos{color:var(--signal)}\n.matrix{overflow:auto}.matrix table{border-collapse:separate;border-spacing:3px;min-width:850px}.matrix th{font-size:8px;color:#7e8996;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.matrix td{width:54px;height:42px;text-align:center;background:#11161c;border:1px solid #252d36;font-size:10px;font-weight:900}.matrix td.win{background:#263313;color:#dfff43}.matrix td.loss{background:#2a1518;color:#ff9ca5}.matrix td.self{background:#080a0d;color:#3f4751}\n.momentum{height:95px;display:flex;align-items:end;gap:5px;margin-top:15px}.momentum i{flex:1;background:linear-gradient(180deg,var(--electric),#30445f);min-height:5px;border-radius:2px 2px 0 0}.momentum i:last-child{background:var(--signal)}\n.v7Callout{padding:28px;border:1px solid #3b4530;background:linear-gradient(120deg,#151b10,#0c0f0b);margin:16px 0}.v7Callout h2{font-size:34px;letter-spacing:-1.8px;margin:5px 0}.v7Callout strong{color:var(--signal)}\n@media(max-width:900px){.labCard,.labCard.w6,.labCard.w8{grid-column:span 6}}\n@media(max-width:650px){.labHero{padding:34px 22px}.labHero h1{font-size:58px;letter-spacing:-4px}.labCard,.labCard.w6,.labCard.w8{grid-column:span 12}.labBig{font-size:48px}.v7Marquee>div{min-width:190px}}\n</style>\n</head>
 <body>
 <div class="shell">
 <div class="top"><div class="brand"><b>LTE DYNASTY HQ</b><span id="sub">Loading league intelligence…</span></div><div class="live">● LIVE SLEEPER DATA</div></div>
 <div class="nav" id="nav"></div><main class="main" id="app"><div class="loading">Building LTE Dynasty HQ…</div></main>
-<div class="foot">LTE Dynasty HQ v6.0 · Unofficial league analytics · Data via Sleeper</div>
+<div class="foot">LTE Dynasty HQ v7.0 · LTE Intelligence Network · Data via Sleeper</div>
 </div>
 <script>
 const LEAGUE_ID="1335326900251271168", API="https://api.sleeper.app/v1", SIMS=12000;
@@ -134,11 +141,11 @@ function registryAudit(){
  return [...found.values()].map(x=>({name:x.name,seasons:[...x.seasons].sort()})).sort((a,b)=>a.name.localeCompare(b.name))
 }
 
-const pages=["HQ","League Pulse","Weekly","Playoff Race","Awards","Power Rankings","Odds","Matchups","Franchises","League Records","Head-to-Head","History","Record Book"];
+const pages=["HQ","League Pulse","Weekly","Playoff Race","Awards","Power Rankings","Odds","Matchups","Franchises","Analytics Lab","League Records","Head-to-Head","History","Record Book"];
 const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function get(u){let r=await fetch(u);if(!r.ok)throw Error("Sleeper API "+r.status);return r.json()}
 function nav(){ $("#nav").innerHTML=pages.map(x=>`<button class="${x===page?"on":""}" onclick="go('${x}')">${x}</button>`).join("") }
-function go(x){page=x;nav(); if((x==="History"||x==="Record Book"||x==="Head-to-Head"||x==="League Records"||x==="Franchises"||x==="League Pulse"||x==="Awards"||x==="Playoff Race")&&!D.history) loadHistory(); else render()}
+function go(x){page=x;nav(); if((x==="History"||x==="Record Book"||x==="Head-to-Head"||x==="League Records"||x==="Analytics Lab"||x==="Franchises"||x==="League Pulse"||x==="Awards"||x==="Playoff Race")&&!D.history) loadHistory(); else render()}
 function pf(r){return +(Number(r.settings?.fpts||0)+(Number(r.settings?.fpts_decimal||0)/100)).toFixed(2)}
 function games(t){return t.w+t.l+t.t}
 function pct(x){return (100*x).toFixed(x>.095?1:2)+"%"}
@@ -349,9 +356,46 @@ function historyV5Graphics(){
  return `<div class="sectionHead"><h2>Banner Room</h2><span>Every linked Sleeper champion</span></div><div class="trophyWall">${champs.map(x=>`<div class="trophyPlate"><div><span class="badge champ">LTE Champion</span><div class="yr">${esc(x.season)}</div></div><b>${esc(x.champ)}</b></div>`).join("")}</div>`
 }
 
+
+function currentLeaders(){
+ let pr=power(), score=[...D.teams].sort((a,b)=>(b.g?b.pf/b.g:0)-(a.g?a.pf/a.g:0)), hot=[...D.teams].sort((a,b)=>b.recent-a.recent), luck=[...D.teams].sort((a,b)=>b.luck-a.luck), steady=[...D.teams].sort((a,b)=>a.consistency-b.consistency);
+ return {pr,score,hot,luck,steady}
+}
+function v7MarqueeHTML(){
+ let L=currentLeaders(), title=[...D.teams].sort((a,b)=>D.odds[b.id].c-D.odds[a.id].c)[0], cut=playoffCut();
+ return `<div class="v7Marquee"><div><span>Power No. 1</span><b>${esc(L.pr[0].name)}</b></div><div><span>Scoring Leader</span><b>${esc(L.score[0].name)} · ${(L.score[0].pf/Math.max(1,L.score[0].g)).toFixed(1)}</b></div><div><span>Hot Hand</span><b>${esc(L.hot[0].name)} · ${L.hot[0].recent.toFixed(1)}</b></div><div><span>Title Market</span><b>${esc(title.name)} · ${pct(D.odds[title.id].c/SIMS)}</b></div><div><span>Playoff Cut</span><b>${esc(cut.inside?.name||'—')}</b></div></div>`
+}
+function franchiseLegacyRows(){
+ if(!D.history)return [];
+ let games=historicalGames(), rows=FRANCHISE_REGISTRY.map(f=>{let gs=games.filter(g=>g.a===f.name||g.b===f.name),w=gs.filter(g=>g.winner===f.name).length,l=gs.length-w,pf=gs.reduce((z,g)=>z+(g.a===f.name?g.ap:g.bp),0),titles=D.history.filter(s=>s.champ===f.name).length,hi=gs.length?Math.max(...gs.map(g=>g.a===f.name?g.ap:g.bp)):0;return{name:f.name,g:gs.length,w,l,pf,titles,hi,score:titles*100+(w/Math.max(1,w+l))*35+(pf/Math.max(1,gs.length))/8}});
+ return rows.sort((a,b)=>b.score-a.score)
+}
+function rivalryMatrixHTML(){
+ let pairs=h2hData(), names=FRANCHISE_REGISTRY.map(x=>x.name), map={};for(let x of pairs){let s=rivalrySummary(x);map[[x.a,x.b].sort().join('|||')]={x,s}}
+ let short=n=>n.replace(/[^A-Za-z0-9 ]/g,'').split(/\s+/).map(x=>x[0]).join('').slice(0,5).toUpperCase();
+ return `<div class="sectionHead"><h2>Rivalry Matrix</h2><span>All-time series record from row franchise perspective</span></div><div class="card wide matrix"><table><tr><th></th>${names.map(n=>`<th title="${esc(n)}">${short(n)}</th>`).join('')}</tr>${names.map(a=>`<tr><th title="${esc(a)}">${short(a)}</th>${names.map(b=>{if(a===b)return '<td class="self">—</td>';let o=map[[a,b].sort().join('|||')];if(!o)return '<td>—</td>';let s=o.s,w=a===o.x.a?s.aw:s.bw,l=a===o.x.a?s.bw:s.aw;return `<td class="${w>l?'win':w<l?'loss':''}" title="${esc(a)} vs ${esc(b)}: ${w}-${l}">${w}-${l}</td>`}).join('')}</tr>`).join('')}</table></div>`
+}
+function analyticsLabHTML(){
+ if(!D.history)return `<div class="loading">Loading LTE Intelligence Lab…</div>`;
+ let L=currentLeaders(), legacy=franchiseLegacyRows(), games=historicalGames(), cur=games.filter(g=>g.season===+D.league.season&&g.week<D.week), avg=cur.length?cur.reduce((z,g)=>z+g.total,0)/(cur.length*2):0;
+ let boom=[...D.teams].map(t=>({t,max:Math.max(...t.scores.filter(Boolean),0),min:Math.min(...t.scores.filter(Boolean),999)})).sort((a,b)=>(b.max-b.min)-(a.max-a.min))[0];
+ let clutch=[...cur].sort((a,b)=>a.margin-b.margin)[0], blow=[...cur].sort((a,b)=>b.margin-a.margin)[0], bestAll=[...D.teams].sort((a,b)=>(b.allN?b.allW/b.allN:0)-(a.allN?a.allW/a.allN:0))[0];
+ let leadRows=(arr,val)=>`<div class="leaderRows">${arr.slice(0,5).map((x,i)=>`<div class="leaderRow"><div class="pos">${i+1}</div><b>${esc(x.name||x.t?.name)}</b><span>${val(x)}</span></div>`).join('')}</div>`;
+ return `${v7MarqueeHTML()}<div class="labHero"><div class="eyebrow">LTE INTELLIGENCE NETWORK / V7</div><h1>The Analytics Lab.</h1><p>A deeper layer of league intelligence: franchise legacy, scoring volatility, all-play strength, rivalry control and the performances defining the current season.</p></div><div class="labGrid">
+ <div class="labCard acid w6"><div class="kpi">All-Play King</div><h3>${esc(bestAll.name)}</h3><div class="labBig">${bestAll.allN?pct(bestAll.allW/bestAll.allN):'—'}</div><div>Win rate if every franchise played every opponent every week.</div></div>
+ <div class="labCard w6"><div class="kpi">League Scoring Climate</div><h3>2026 Average Team Score</h3><div class="labBig">${avg?avg.toFixed(1):'—'}</div><div class="muted">Across completed current-season matchups.</div></div>
+ <div class="labCard"><div class="kpi">Boom / Bust Index</div><h3>${esc(boom?.t?.name||'—')}</h3><div class="labBig">${boom&&boom.min<999?(boom.max-boom.min).toFixed(1):'—'}</div><div class="muted">Gap between best and worst completed scoring weeks.</div></div>
+ <div class="labCard"><div class="kpi">Closest 2026 Finish</div><h3>${clutch?esc(clutch.winner):'—'}</h3><div class="labBig">${clutch?clutch.margin.toFixed(2):'—'}</div><div class="muted">${clutch?`over ${esc(clutch.loser)} · W${clutch.week}`:'No completed game'}</div></div>
+ <div class="labCard"><div class="kpi">Largest 2026 Statement</div><h3>${blow?esc(blow.winner):'—'}</h3><div class="labBig">${blow?blow.margin.toFixed(1):'—'}</div><div class="muted">${blow?`point margin · W${blow.week}`:'No completed game'}</div></div>
+ <div class="labCard w6"><div class="kpi">Current Power Board</div><h3>Model Leaders</h3>${leadRows(L.pr,x=>x.power.toFixed(1))}</div>
+ <div class="labCard w6"><div class="kpi">Franchise Legacy Index</div><h3>Historical Leaders</h3>${leadRows(legacy,x=>`${x.titles} title${x.titles===1?'':'s'} · ${x.w}-${x.l}`)}</div>
+ </div>${rivalryMatrixHTML()}<div class="v7Callout"><div class="eyebrow">MODEL NOTE</div><h2>More signal. Less noise.</h2><div class="muted">The Lab separates descriptive historical results from model-driven current-season metrics. Legacy Index is a presentation metric built from championships, historical win rate and average scoring; it is not used in championship odds or the blind power rankings.</div></div>`
+}
+function hqV7(){return `${v7MarqueeHTML()}${hqV5()}<div class="sectionHead"><h2>V7 Intelligence</h2><span>New analytical layer</span></div><div class="labGrid">${(()=>{let L=currentLeaders(),best=L.pr[0],all=[...D.teams].sort((a,b)=>(b.allN?b.allW/b.allN:0)-(a.allN?a.allW/a.allN:0))[0],steady=L.steady[0];return `<div class="labCard"><div class="kpi">Power Standard</div><h3>${esc(best.name)}</h3><div class="labBig">${best.power.toFixed(1)}</div></div><div class="labCard"><div class="kpi">All-Play Standard</div><h3>${esc(all.name)}</h3><div class="labBig">${all.allN?pct(all.allW/all.allN):'—'}</div></div><div class="labCard"><div class="kpi">Consistency Standard</div><h3>${esc(steady.name)}</h3><div class="labBig">${steady.consistency.toFixed(1)}</div></div>`})()}</div>`}
+
 function render(){
  let h="";
- if(page==="HQ")h=hqV5();
+ if(page==="HQ")h=hqV7();
  if(page==="League Pulse")h=leaguePulseHTML()+historyWeekHTML()+gameOfYearHTML()+recordsThreatHTML();
  if(page==="Playoff Race")h=playoffRaceHTML();
  if(page==="Awards")h=awardsV5HTML();
@@ -360,6 +404,7 @@ function render(){
  if(page==="Odds")h=oddsV5HTML();
  if(page==="Matchups")h=`<div class="grid">${matchupCard()}<div class="card"><h3 class="sectionTitle">Scoring Form</h3>${power().map(t=>`<div style="margin:12px 0"><b>${esc(t.name)}</b><span class="muted"> · ${t.recent.toFixed(1)} recent avg</span><div class="bar"><i style="width:${Math.min(100,t.recent/2)}%"></i></div></div>`).join("")}</div></div>`;
  if(page==="Franchises")h=`<div class="hero"><div class="eyebrow">FRANCHISE DIRECTORY / THE 12</div><h1>LTE Franchises</h1><div class="muted">Current-season franchise profiles and analytics.</div></div><div class="teamGrid">${power().map((t,i)=>{let mv=powerMovement(t);return `<div class="team clickable" style="position:relative;overflow:hidden" onclick="openFranchise(${JSON.stringify(t.name).replace(/"/g,"&quot;")})"><span class="pill">Power #${i+1}</span><span class="rankMove ${mv>0?"up":mv<0?"down":""}" style="float:right">${mv>0?"▲ "+mv:mv<0?"▼ "+Math.abs(mv):"—"}</span><h3>${esc(t.name)}</h3><div class="muted">${esc(t.display)}</div><p><b>${t.w}-${t.l}</b> · ${t.pf.toFixed(1)} PF</p><div class="kpi">Championship probability</div><div class="stat">${pct(D.odds[t.id].c/SIMS)}</div></div>`}).join("")}</div>`;
+ if(page==="Analytics Lab")h=analyticsLabHTML();
  if(page==="League Records")h=leagueRecordsHTML();
  if(page==="Head-to-Head")h=headToHeadHTML();
  if(page==="History"||page==="Record Book")h=historyHTML()+(page==="History"?historyV5Graphics():"");
@@ -407,6 +452,35 @@ function headToHeadHTML(){
  ${names.map(n=>{let rows=pairs.filter(x=>x.a===n||x.b===n).map(x=>{let opp=x.a===n?x.b:x.a,w=0,l=0,t=0,pf=0,pa=0;for(let g of x.games){let mine=g.an===n?g.as:g.bs,other=g.an===n?g.bs:g.as;pf+=mine;pa+=other;if(mine>other)w++;else if(mine<other)l++;else t++}return{opp,w,l,t,pf,pa}}).sort((a,b)=>b.w-a.w||a.l-b.l);return `<div class="team"><h3>${esc(n)}</h3>${rows.map(r=>`<div style="padding:7px 0;border-bottom:1px solid #202b3a"><b>${esc(r.opp)}</b><span style="float:right">${r.w}-${r.l}${r.t?`-${r.t}`:""}</span><div class="muted">${r.pf.toFixed(1)} PF · ${r.pa.toFixed(1)} PA</div></div>`).join("")}</div>`}).join("")}
  </div></div>`;
 }
+
+let H2H_PICK={a:"",b:""};
+function rivalrySummary(x){
+ let aw=0,bw=0,t=0,ap=0,bp=0,playoffs=0,closest=null,blow=null,streak={team:"",n:0},cur={team:"",n:0};
+ let games=[...x.games].sort((g,h)=>Number(g.season)-Number(h.season)||g.week-h.week);
+ for(let g of games){let xa=g.an===x.a?g.as:g.bs,xb=g.an===x.a?g.bs:g.as,margin=Math.abs(xa-xb);ap+=xa;bp+=xb;if(g.type==="Playoffs")playoffs++;
+  let win=xa>xb?x.a:xb>xa?x.b:"Tie"; if(xa>xb)aw++;else if(xb>xa)bw++;else t++;
+  if(!closest||margin<closest.margin)closest={...g,margin,xa,xb,win};if(!blow||margin>blow.margin)blow={...g,margin,xa,xb,win};
+  if(win!=="Tie"){if(cur.team===win)cur.n++;else cur={team:win,n:1};if(cur.n>streak.n)streak={...cur}}
+ }
+ let last=[...games].sort((g,h)=>Number(h.season)-Number(g.season)||h.week-g.week)[0];
+ return{aw,bw,t,ap,bp,playoffs,closest,blow,streak,last,games,meetings:games.length,avgMargin:games.length?games.reduce((z,g)=>z+Math.abs(g.as-g.bs),0)/games.length:0};
+}
+function h2hSelect(side,val){H2H_PICK[side]=val;if(H2H_PICK.a===H2H_PICK.b){let names=[...new Set(h2hData().flatMap(x=>[x.a,x.b]))];H2H_PICK[side==='a'?'b':'a']=names.find(n=>n!==val)||""}render()}
+function openRivalry(a,b){H2H_PICK={a,b};render();setTimeout(()=>document.querySelector('.h2hControls')?.scrollIntoView({behavior:'smooth',block:'start'}),30)}
+function headToHeadHTML(){
+ if(!D.history)return `<div class="loading">Building LTE Rivalry Center…</div>`;
+ let pairs=h2hData(),names=[...new Set(pairs.flatMap(x=>[x.a,x.b]))].sort();if(names.length<2)return `<div class="error">Not enough rivalry history found.</div>`;
+ if(!H2H_PICK.a||!names.includes(H2H_PICK.a))H2H_PICK.a=names[0];if(!H2H_PICK.b||!names.includes(H2H_PICK.b)||H2H_PICK.b===H2H_PICK.a)H2H_PICK.b=names.find(n=>n!==H2H_PICK.a);
+ let pair=pairs.find(x=>(x.a===H2H_PICK.a&&x.b===H2H_PICK.b)||(x.a===H2H_PICK.b&&x.b===H2H_PICK.a));
+ let most=[...pairs].sort((a,b)=>b.games.length-a.games.length)[0],close=[...pairs].map(x=>({x,s:rivalrySummary(x)})).sort((a,b)=>a.s.avgMargin-b.s.avgMargin)[0],oneSided=[...pairs].map(x=>({x,s:rivalrySummary(x)})).sort((a,b)=>Math.abs(b.s.aw-b.s.bw)-Math.abs(a.s.aw-a.s.bw))[0],play=[...pairs].map(x=>({x,s:rivalrySummary(x)})).sort((a,b)=>b.s.playoffs-a.s.playoffs)[0];
+ let leaders=`<div class="rivalryLeaders"><div class="rivalryLeader acid"><div class="kpi">Most Played</div><strong>${esc(most.a)} × ${esc(most.b)}</strong><div>${most.games.length} meetings</div></div><div class="rivalryLeader"><div class="kpi">Tightest Rivalry</div><strong>${esc(close.x.a)} × ${esc(close.x.b)}</strong><div class="muted">${close.s.avgMargin.toFixed(1)} avg margin</div></div><div class="rivalryLeader"><div class="kpi">Most One-Sided</div><strong>${esc(oneSided.x.a)} × ${esc(oneSided.x.b)}</strong><div class="muted">${Math.max(oneSided.s.aw,oneSided.s.bw)}–${Math.min(oneSided.s.aw,oneSided.s.bw)} series</div></div><div class="rivalryLeader"><div class="kpi">Playoff History</div><strong>${esc(play.x.a)} × ${esc(play.x.b)}</strong><div class="muted">${play.s.playoffs} postseason meetings</div></div></div>`;
+ let controls=`<div class="h2hControls"><div><label>Franchise A</label><select onchange="h2hSelect('a',this.value)">${names.map(n=>`<option ${n===H2H_PICK.a?'selected':''}>${esc(n)}</option>`).join('')}</select></div><div class="h2hVs">VS</div><div><label>Franchise B</label><select onchange="h2hSelect('b',this.value)">${names.map(n=>`<option ${n===H2H_PICK.b?'selected':''}>${esc(n)}</option>`).join('')}</select></div></div>`;
+ let detail='';if(pair){let s=rivalrySummary(pair),a=H2H_PICK.a,b=H2H_PICK.b,aw=a===pair.a?s.aw:s.bw,bw=a===pair.a?s.bw:s.aw,ap=a===pair.a?s.ap:s.bp,bp=a===pair.a?s.bp:s.ap;
+  detail=`<div class="seriesHero"><div class="seriesSide"><div class="kpi">Franchise A</div><h2>${esc(a)}</h2><div class="muted">${ap.toFixed(1)} all-time points</div></div><div class="seriesScore"><span>All-Time Series</span><strong>${aw}–${bw}${s.t?`–${s.t}`:''}</strong><span>${s.meetings} meetings</span></div><div class="seriesSide right"><div class="kpi">Franchise B</div><h2>${esc(b)}</h2><div class="muted">${bp.toFixed(1)} all-time points</div></div></div><div class="h2hStats"><div class="h2hStat"><span>Point Differential</span><b>${Math.abs(ap-bp).toFixed(1)}</b></div><div class="h2hStat"><span>Avg Margin</span><b>${s.avgMargin.toFixed(1)}</b></div><div class="h2hStat"><span>Playoff Meetings</span><b>${s.playoffs}</b></div><div class="h2hStat"><span>Longest Streak</span><b>${s.streak.n}</b><small class="muted">${esc(s.streak.team)}</small></div><div class="h2hStat"><span>Closest Game</span><b>${s.closest?s.closest.margin.toFixed(2):'—'}</b></div><div class="h2hStat"><span>Biggest Blowout</span><b>${s.blow?s.blow.margin.toFixed(2):'—'}</b></div></div><div class="card wide"><div class="sectionHead" style="margin-top:0"><h2>Series Game Log</h2><span>Newest first</span></div><div class="gameLog">${[...s.games].reverse().map(g=>{let xa=g.an===a?g.as:g.bs,xb=g.an===a?g.bs:g.as;return `<div class="gameRow"><div><b>${esc(g.season)}</b><div class="muted">W${g.week}</div></div><div class="${xa>xb?'winner':''}">${esc(a)}</div><div class="gscore">${xa.toFixed(2)}–${xb.toFixed(2)}</div><div class="${xb>xa?'winner':''}">${esc(b)}</div><div><span class="badge ${g.type==='Playoffs'?'playoff':''}">${g.type}</span></div></div>`}).join('')}</div></div>`}
+ let directory=`<div class="sectionHead"><h2>Rivalry Directory</h2><span>Tap any matchup to open the series</span></div><div class="rivalryDirectory">${pairs.map(x=>{let s=rivalrySummary(x);return `<div class="rivalryCard" onclick='openRivalry(${JSON.stringify(x.a)},${JSON.stringify(x.b)})'><div class="kpi">${s.meetings} meetings · ${s.playoffs} playoffs</div><h3>${esc(x.a)} <span class="muted">vs</span> ${esc(x.b)}</h3><div class="record">${s.aw}–${s.bw}${s.t?`–${s.t}`:''}</div><div class="muted">${s.avgMargin.toFixed(1)} avg margin · last ${esc(s.last.season)} W${s.last.week}</div></div>`}).join('')}</div>`;
+ return `<div class="h2hHero"><div class="eyebrow">LTE INTELLIGENCE / RIVALRY CENTER</div><h1>Every series.<br>Every score.</h1><div class="muted">Choose any two franchises for their complete linked-Sleeper history, then explore the league's defining rivalries below.</div></div>${leaders}${controls}${detail}${directory}`;
+}
+
 function historyHTML(){
  if(!D.history)return `<div class="loading">Loading history…</div>`;
  if(page==="History"){let audit=registryAudit();return `<div class="hero"><div class="eyebrow">THE ARCHIVE / SINCE THE BEGINNING</div><h1>LTE Dynasty History</h1><div class="muted">${D.history.length} Sleeper seasons discovered automatically.</div></div>
