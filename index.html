@@ -46,7 +46,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 </style>
 
 <style>
-/* LTE Dynasty HQ v5.0 — broadcast graphics system */
+/* LTE Dynasty HQ v6.0 — broadcast graphics system */
 :root{--v5blue:#66a7ff;--v5cyan:#65f0df;--v5gold:#ffd86b;--v5pink:#ff769d}
 body{background:#07090c}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(circle at 15% 5%,rgba(102,167,255,.12),transparent 28%),radial-gradient(circle at 85% 25%,rgba(216,255,62,.07),transparent 24%)}
@@ -67,12 +67,39 @@ body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;back
 @media(max-width:900px){.broadcastHero{grid-template-columns:1fr}.broadcastCopy{padding:32px;min-height:360px}.broadcastGraphic{min-height:300px}.orb{width:230px;height:230px}.graphicGrid .visualCard{grid-column:span 6}.matchupPoster{grid-template-columns:1fr 55px 1fr}}
 @media(max-width:600px){.broadcastHero{min-height:0}.broadcastCopy h1{font-size:55px;letter-spacing:-4px}.broadcastCopy{padding:26px}.broadcastGraphic{min-height:260px}.orb{width:190px;height:190px}.orbText b{font-size:42px}.graphicGrid .visualCard{grid-column:span 12}.visualCard{min-height:190px}.matchupPoster{padding:18px;grid-template-columns:1fr 42px 1fr;min-height:290px}.versus{width:42px;height:42px}.fighter h3{font-size:16px}.fighter .seedNum{font-size:52px}.pageIntro{display:block}.scoreBox{min-width:220px}}
 </style>
+
+<style>
+/* LTE Dynasty HQ v6.0 — agency-grade sports product */
+:root{--paper:#f4f1e9;--signal:#dfff43;--electric:#79a9ff;--hot:#ff6f61;--night:#07090c;--glass:rgba(15,18,23,.78)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--night);letter-spacing:-.015em}
+body:before{background:radial-gradient(900px 620px at 78% -12%,rgba(121,169,255,.16),transparent 68%),radial-gradient(760px 540px at -8% 32%,rgba(223,255,67,.055),transparent 70%)}
+.shell{max-width:1560px}.top{padding:22px 34px}.brand b{font-size:20px;letter-spacing:-.8px}.brand b:before{border-radius:50%;width:44px;height:44px;background:var(--signal)}.brand span{font-size:11px;letter-spacing:.04em;text-transform:uppercase}.live{border-radius:999px;background:#0e1511;border-color:#284334;color:#9bf0c4}
+.nav{top:0;padding:10px 28px;border-color:#ffffff10;background:rgba(7,9,12,.86);box-shadow:0 10px 40px #0004}.nav button{border-radius:999px;padding:10px 14px}.nav button.on{background:var(--signal);color:#090b0d}
+.main{padding:26px 30px 60px}.eyebrow{font-size:9px;letter-spacing:2.4px}.sectionHead{margin-top:42px}.sectionHead h2{font-size:28px;letter-spacing:-1.4px}.sectionHead span{font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+.broadcastHero{min-height:590px;border-radius:24px;border-color:#303844;background:linear-gradient(135deg,#111722 0%,#090c11 56%,#0f1217 100%);box-shadow:0 34px 100px rgba(0,0,0,.38)}
+.broadcastHero:after{content:"";position:absolute;right:-6%;bottom:-45%;width:620px;height:620px;border:1px solid #ffffff10;border-radius:50%;box-shadow:0 0 0 80px #ffffff04,0 0 0 160px #ffffff025}
+.broadcastCopy{padding:64px;position:relative}.broadcastCopy:before{content:"LTE / HQ";position:absolute;top:34px;left:64px;font-size:10px;letter-spacing:.28em;color:#657080}.broadcastCopy h1{font-size:clamp(64px,9vw,136px);line-height:.75;letter-spacing:-8px;max-width:940px}.broadcastCopy .lead{font-size:17px;max-width:790px}.broadcastGraphic{z-index:2}.orb{width:340px;height:340px}.orbText b{font-size:64px}
+.scoreRibbon{border-radius:14px;border:1px solid #29313c;margin-bottom:16px}.scoreBox{background:linear-gradient(180deg,#10141a,#0c0f13)}
+.graphicGrid{gap:14px}.visualCard{border-radius:18px;min-height:250px;padding:26px;box-shadow:0 18px 50px rgba(0,0,0,.18);transition:transform .22s ease,border-color .22s ease}.visualCard:hover{transform:translateY(-4px);border-color:#485463}.visualCard h3{font-size:30px}.visualCard.acid{box-shadow:0 22px 70px rgba(223,255,67,.08)}
+.card,.team,.metric,.spotlight,.story,.awardCard,.recordTile{border-radius:16px;background:linear-gradient(180deg,rgba(18,22,29,.96),rgba(11,14,18,.96));border-color:#29313c}.card{padding:24px}.team{padding:20px}.team:hover{transform:translateY(-4px);border-color:#556171}.pill,.tag,.badge{border-radius:999px}.matchupPoster{border-radius:22px;min-height:410px;box-shadow:0 30px 80px #0005}.fighter h3{font-size:clamp(32px,4vw,62px);letter-spacing:-3px}.versus{border-radius:50%;width:58px;height:58px;display:grid;place-items:center;background:var(--signal);color:#090b0d;border:0;font-weight:1000}
+.pageIntro{padding:34px 0 22px;border-bottom:1px solid #232a33;margin-bottom:18px}.pageIntro h1{font-size:clamp(52px,8vw,104px);line-height:.82;letter-spacing:-6px;margin:8px 0;text-transform:uppercase}.pageIntro p{max-width:720px;color:#9aa4b1;font-size:16px;line-height:1.6}
+.table{border-collapse:separate;border-spacing:0}.table th{letter-spacing:.12em}.table td,.table th{padding:15px 10px}.table tr:last-child td{border-bottom:0}
+.rankItem{padding:18px 8px}.rankItem .n{font-size:34px}.rankItem:first-child{background:linear-gradient(90deg,rgba(223,255,67,.07),transparent)}
+.newsletter{border-radius:18px;background:var(--paper);box-shadow:0 45px 120px #0009;overflow:hidden}.newsletter:before{content:"LTE DYNASTY • INDEPENDENT LEAGUE JOURNAL • 2026";display:block;border-bottom:1px solid #aaa195;padding-bottom:12px;font:700 9px Inter,sans-serif;letter-spacing:.18em}.newsletter h1{font-family:Georgia,serif;text-transform:none;letter-spacing:-3.5px}.newsletter h2{font-size:27px}.award{border-color:#cfc7ba}
+.trophyWall,.bannerGrid{gap:14px}.trophyPlate,.banner{border-radius:16px;min-height:190px}.trophyPlate{background:linear-gradient(145deg,#2b2412,#0e0d0a);border:1px solid #5f5125;padding:22px}.trophyPlate .yr{font-size:42px;color:#ffe681;font-weight:1000;letter-spacing:-2px}
+.raceRow{border-radius:12px;margin:4px 0;padding:17px 12px}.raceRow:hover{background:#ffffff03}.seed{border-radius:50%}.seed.in{box-shadow:0 0 24px rgba(223,255,67,.12)}
+.awardCard{border-radius:18px;min-height:260px}.awardCard:first-child{background:linear-gradient(135deg,#1d2616,#0e120c)}
+.historyMoment{border-radius:0 16px 16px 0;padding:26px}.timelineSeason{padding:18px 8px}.timelineSeason:hover{background:#ffffff025}
+/* app-like mobile */
+@media(max-width:760px){.top{padding:16px 14px}.brand span{margin-left:55px}.main{padding:12px 12px 92px}.nav{position:fixed;z-index:30;top:auto;bottom:0;left:0;right:0;padding:8px 8px calc(8px + env(safe-area-inset-bottom));border-top:1px solid #2a313a;border-bottom:0;justify-content:flex-start;background:rgba(7,9,12,.94);backdrop-filter:blur(22px)}.nav button{font-size:9px;padding:10px 12px}.broadcastHero{min-height:540px;border-radius:18px;grid-template-columns:1fr}.broadcastCopy{padding:34px 24px}.broadcastCopy:before{left:24px;top:20px}.broadcastCopy h1{font-size:58px;letter-spacing:-4px;margin-top:45px}.broadcastGraphic{min-height:300px}.orb{width:245px;height:245px}.orbText b{font-size:48px}.visualCard,.visualCard.w8,.visualCard.w6{grid-column:span 12;border-radius:16px}.matchupPoster{border-radius:18px}.pageIntro h1{font-size:55px;letter-spacing:-3.5px}.newsletter{border-radius:14px}.sectionHead h2{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
 </head>
 <body>
 <div class="shell">
 <div class="top"><div class="brand"><b>LTE DYNASTY HQ</b><span id="sub">Loading league intelligence…</span></div><div class="live">● LIVE SLEEPER DATA</div></div>
 <div class="nav" id="nav"></div><main class="main" id="app"><div class="loading">Building LTE Dynasty HQ…</div></main>
-<div class="foot">LTE Dynasty HQ v5.0 · Unofficial league analytics · Data via Sleeper</div>
+<div class="foot">LTE Dynasty HQ v6.0 · Unofficial league analytics · Data via Sleeper</div>
 </div>
 <script>
 const LEAGUE_ID="1335326900251271168", API="https://api.sleeper.app/v1", SIMS=12000;
@@ -307,7 +334,7 @@ function powerGraphicsHTML(){
 }
 function hqV5(){
  let pr=power(),leader=sorted()[0],title=[...D.teams].sort((a,b)=>D.odds[b.id].c-D.odds[a.id].c)[0],cut=playoffCut(),tp=100*D.odds[title.id].c/SIMS;
- return `${scoreRibbonHTML()}<div class="broadcastHero"><div class="broadcastCopy"><div class="eyebrow">LTE DYNASTY · 2026 · WEEK ${D.week}</div><h1>The league has a new command center.</h1><div class="lead"><b>${esc(pr[0].name)}</b> sits atop the blind power model. <b>${esc(leader.name)}</b> holds the current No. 1 seed, while <b>${esc(title.name)}</b> leads the championship market at ${pct(D.odds[title.id].c/SIMS)}.</div></div><div class="broadcastGraphic"><div class="orb" style="--p:${tp}%"><div class="orbText"><span>Title Favorite</span><b>${pct(D.odds[title.id].c/SIMS)}</b><span>${esc(title.name)}</span></div></div></div></div>${powerGraphicsHTML()}${matchupPosterHTML()}<div class="sectionHead"><h2>League Table</h2><span>${cut.n} playoff spots · live Sleeper standings</span></div><div class="grid">${standingsCard()}${matchupCard()}</div>${trendHTML()}${D.history?historyWeekHTML():""}`
+ return `${scoreRibbonHTML()}<div class="broadcastHero"><div class="broadcastCopy"><div class="eyebrow">LTE DYNASTY · 2026 · WEEK ${D.week}</div><h1>The league, reimagined.</h1><div class="lead"><b>${esc(pr[0].name)}</b> sits atop the blind power model. <b>${esc(leader.name)}</b> holds the current No. 1 seed, while <b>${esc(title.name)}</b> leads the championship market at ${pct(D.odds[title.id].c/SIMS)}.</div></div><div class="broadcastGraphic"><div class="orb" style="--p:${tp}%"><div class="orbText"><span>Title Favorite</span><b>${pct(D.odds[title.id].c/SIMS)}</b><span>${esc(title.name)}</span></div></div></div></div><div class="metricRow"><div class="metric"><div class="kpi">Product</div><strong>LTE Intelligence</strong><div class="muted">Live league operating system</div></div><div class="metric"><div class="kpi">Model</div><strong>12,000 Sims</strong><div class="muted">Championship market</div></div><div class="metric"><div class="kpi">Archive</div><strong>${D.history?D.history.length:"Live"}</strong><div class="muted">Linked Sleeper seasons</div></div><div class="metric"><div class="kpi">Format</div><strong>7 Teams</strong><div class="muted">Make the postseason</div></div></div>${powerGraphicsHTML()}${matchupPosterHTML()}<div class="sectionHead"><h2>League Table</h2><span>${cut.n} playoff spots · live Sleeper standings</span></div><div class="grid">${standingsCard()}${matchupCard()}</div>${trendHTML()}${D.history?historyWeekHTML():""}`
 }
 function oddsV5HTML(){
  let list=[...D.teams].sort((a,b)=>D.odds[b.id].c-D.odds[a.id].c),top=list[0];
@@ -329,10 +356,10 @@ function render(){
  if(page==="Playoff Race")h=playoffRaceHTML();
  if(page==="Awards")h=awardsV5HTML();
  if(page==="Weekly")h=weeklyHTML();
- if(page==="Power Rankings")h=`<div class="hero"><div class="eyebrow">BLIND MODEL</div><h1>Power Rankings</h1><div class="muted">35% record · 30% scoring · 20% all-play · 15% recent form. Franchise names are attached after calculation.</div></div><div class="card wide rankList">${power().map((t,i)=>{let mv=powerMovement(t);return `<div class="rankItem"><div class="n">${String(i+1).padStart(2,"0")}</div><div><div class="teamName">${esc(t.name)}</div><div class="muted">${mv>0?`▲ ${mv} this week`:mv<0?`▼ ${Math.abs(mv)} this week`:"No movement"}</div></div><div><div class="kpi">Rating</div><b>${t.power.toFixed(1)}</b></div><div><div class="kpi">All-Play</div><b>${t.allN?pct(t.allW/t.allN):"—"}</b></div><div><div class="kpi">xW / Luck</div><b>${t.expWins.toFixed(2)} · ${t.luck>=0?"+":""}${t.luck.toFixed(2)}</b></div></div>`}).join("")}</div>`;
+ if(page==="Power Rankings")h=`<div class="hero"><div class="eyebrow">LTE INTELLIGENCE / BLIND MODEL</div><h1>Power Rankings</h1><div class="muted">35% record · 30% scoring · 20% all-play · 15% recent form. Franchise names are attached after calculation.</div></div><div class="card wide rankList">${power().map((t,i)=>{let mv=powerMovement(t);return `<div class="rankItem"><div class="n">${String(i+1).padStart(2,"0")}</div><div><div class="teamName">${esc(t.name)}</div><div class="muted">${mv>0?`▲ ${mv} this week`:mv<0?`▼ ${Math.abs(mv)} this week`:"No movement"}</div></div><div><div class="kpi">Rating</div><b>${t.power.toFixed(1)}</b></div><div><div class="kpi">All-Play</div><b>${t.allN?pct(t.allW/t.allN):"—"}</b></div><div><div class="kpi">xW / Luck</div><b>${t.expWins.toFixed(2)} · ${t.luck>=0?"+":""}${t.luck.toFixed(2)}</b></div></div>`}).join("")}</div>`;
  if(page==="Odds")h=oddsV5HTML();
  if(page==="Matchups")h=`<div class="grid">${matchupCard()}<div class="card"><h3 class="sectionTitle">Scoring Form</h3>${power().map(t=>`<div style="margin:12px 0"><b>${esc(t.name)}</b><span class="muted"> · ${t.recent.toFixed(1)} recent avg</span><div class="bar"><i style="width:${Math.min(100,t.recent/2)}%"></i></div></div>`).join("")}</div></div>`;
- if(page==="Franchises")h=`<div class="hero"><div class="eyebrow">THE 12</div><h1>LTE Franchises</h1><div class="muted">Current-season franchise profiles and analytics.</div></div><div class="teamGrid">${power().map((t,i)=>{let mv=powerMovement(t);return `<div class="team clickable" style="position:relative;overflow:hidden" onclick="openFranchise(${JSON.stringify(t.name).replace(/"/g,"&quot;")})"><span class="pill">Power #${i+1}</span><span class="rankMove ${mv>0?"up":mv<0?"down":""}" style="float:right">${mv>0?"▲ "+mv:mv<0?"▼ "+Math.abs(mv):"—"}</span><h3>${esc(t.name)}</h3><div class="muted">${esc(t.display)}</div><p><b>${t.w}-${t.l}</b> · ${t.pf.toFixed(1)} PF</p><div class="kpi">Championship probability</div><div class="stat">${pct(D.odds[t.id].c/SIMS)}</div></div>`}).join("")}</div>`;
+ if(page==="Franchises")h=`<div class="hero"><div class="eyebrow">FRANCHISE DIRECTORY / THE 12</div><h1>LTE Franchises</h1><div class="muted">Current-season franchise profiles and analytics.</div></div><div class="teamGrid">${power().map((t,i)=>{let mv=powerMovement(t);return `<div class="team clickable" style="position:relative;overflow:hidden" onclick="openFranchise(${JSON.stringify(t.name).replace(/"/g,"&quot;")})"><span class="pill">Power #${i+1}</span><span class="rankMove ${mv>0?"up":mv<0?"down":""}" style="float:right">${mv>0?"▲ "+mv:mv<0?"▼ "+Math.abs(mv):"—"}</span><h3>${esc(t.name)}</h3><div class="muted">${esc(t.display)}</div><p><b>${t.w}-${t.l}</b> · ${t.pf.toFixed(1)} PF</p><div class="kpi">Championship probability</div><div class="stat">${pct(D.odds[t.id].c/SIMS)}</div></div>`}).join("")}</div>`;
  if(page==="League Records")h=leagueRecordsHTML();
  if(page==="Head-to-Head")h=headToHeadHTML();
  if(page==="History"||page==="Record Book")h=historyHTML()+(page==="History"?historyV5Graphics():"");
@@ -382,7 +409,7 @@ function headToHeadHTML(){
 }
 function historyHTML(){
  if(!D.history)return `<div class="loading">Loading history…</div>`;
- if(page==="History"){let audit=registryAudit();return `<div class="hero"><div class="eyebrow">THE ARCHIVE</div><h1>LTE Dynasty History</h1><div class="muted">${D.history.length} Sleeper seasons discovered automatically.</div></div>
+ if(page==="History"){let audit=registryAudit();return `<div class="hero"><div class="eyebrow">THE ARCHIVE / SINCE THE BEGINNING</div><h1>LTE Dynasty History</h1><div class="muted">${D.history.length} Sleeper seasons discovered automatically.</div></div>
  <div class="card wide" style="margin-bottom:14px"><h3 class="sectionTitle">Franchise Registry Audit</h3>
  <div class="stat">${audit.length}</div><div class="kpi">Unmapped historical names</div>
  ${audit.length?`<div style="margin-top:12px">${audit.map(x=>`<div style="padding:9px 0;border-bottom:1px solid #202b3a"><b>${esc(x.name)}</b><span class="muted"> · ${x.seasons.join(", ")}</span></div>`).join("")}</div>`:`<p class="up"><b>✓ All historical names are mapped to one of the 12 LTE franchises.</b></p>`}
