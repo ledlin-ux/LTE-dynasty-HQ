@@ -46,7 +46,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 </style>
 
 <style>
-/* LTE Dynasty HQ v10.1 Full Navigation — broadcast graphics system */
+/* LTE Dynasty HQ v10.1.2 Theme QA — broadcast graphics system */
 :root{--v5blue:#66a7ff;--v5cyan:#65f0df;--v5gold:#ffd86b;--v5pink:#ff769d}
 body{background:#07090c}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(circle at 15% 5%,rgba(102,167,255,.12),transparent 28%),radial-gradient(circle at 85% 25%,rgba(216,255,62,.07),transparent 24%)}
@@ -160,6 +160,52 @@ html[data-theme="light"] .v10Btn{border-color:#b9b6ae;color:#111318;background:#
 html[data-theme="light"] .navMenu{background:rgba(255,254,250,.99);border-color:#d7d4cb;box-shadow:0 20px 60px #2222}
 .mobileAllNav{display:none}
 @media(max-width:820px){.nav{overflow:auto!important}.navGroup{display:none}.mobileAllNav{display:inline-flex;gap:5px}.mobileAllNav button{display:inline-block}.navDesktopHome{display:inline-block}}
+</style>
+
+<style>
+/* v10.1.2 theme QA patch */
+.topActions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+html[data-theme="light"] body,html[data-theme="light"] #app,html[data-theme="light"] .main{color:#111318}
+html[data-theme="light"] .feature,html[data-theme="light"] .spotlight:not(.acid),html[data-theme="light"] .story,html[data-theme="light"] .seasonChip,
+html[data-theme="light"] .awardCard,html[data-theme="light"] .historyMoment,html[data-theme="light"] .rivalryFeature,
+html[data-theme="light"] .recordTile,html[data-theme="light"] .matchupPoster,html[data-theme="light"] .scoreRibbon,
+html[data-theme="light"] .ticker,html[data-theme="light"] .tick,html[data-theme="light"] .seriesHero,
+html[data-theme="light"] .h2hControls,html[data-theme="light"] .gameLog,html[data-theme="light"] .v10Section,
+html[data-theme="light"] .v10PowerRow,html[data-theme="light"] .v10ScoreRail,html[data-theme="light"] .v10ScoreItem,
+html[data-theme="light"] .raceRow,html[data-theme="light"] .timelineSeason{background:#fffefa!important;color:#111318!important;border-color:#d7d4cb!important}
+html[data-theme="light"] .feature h1,html[data-theme="light"] .story h3,html[data-theme="light"] .awardCard h3,
+html[data-theme="light"] .sectionTitle,html[data-theme="light"] .sectionHead h2,html[data-theme="light"] .teamName,
+html[data-theme="light"] .seriesSide h2,html[data-theme="light"] .rivalryCard h3,html[data-theme="light"] .record,
+html[data-theme="light"] .stat,html[data-theme="light"] .score,html[data-theme="light"] .pts{color:#111318!important}
+html[data-theme="light"] .feature .dek,html[data-theme="light"] .broadcastCopy .lead,
+html[data-theme="light"] .tick span,html[data-theme="light"] .sectionHead span{color:#656b73!important}
+html[data-theme="light"] .table{color:#111318!important}
+html[data-theme="light"] .table th{color:#656b73!important}
+html[data-theme="light"] select{background:#fffefa!important;color:#111318!important;border-color:#c9c6bd!important}
+html[data-theme="light"] .pill,html[data-theme="light"] .tag{background:#e7e4dc!important;color:#29313a!important}
+html[data-theme="light"] .badge{color:#30363d;border-color:#b9b6ae}
+html[data-theme="light"] .champ{color:#725d00!important;border-color:#b79c32!important}
+html[data-theme="light"] .playoff{color:#175b80!important;border-color:#75a8c4!important}
+html[data-theme="light"] .danger{color:#a72835!important;border-color:#cf8c94!important}
+html[data-theme="light"] .broadcastHero:before{background:linear-gradient(90deg,rgba(255,254,250,.08),rgba(243,241,235,.78)),repeating-linear-gradient(115deg,transparent 0 45px,rgba(0,0,0,.018) 45px 46px)}
+html[data-theme="light"] .orb:before,html[data-theme="light"] .miniDonut:after{background:#fffefa}
+html[data-theme="light"] .visualCard.blue{background:linear-gradient(145deg,#e8f0fa,#fffefa)!important}
+html[data-theme="light"] .visualCard.gold{background:linear-gradient(145deg,#f5ecd0,#fffefa)!important}
+html[data-theme="light"] .banner{background:linear-gradient(180deg,#f4e7b7,#fffefa)!important;color:#111318!important;border-color:#c7ae56!important}
+html[data-theme="light"] .banner .year{color:#725d00!important}
+html[data-theme="light"] .newsletter{background:#fffefa!important;color:#171717!important;box-shadow:0 20px 60px #2222}
+html[data-theme="light"] .newsletter .muted{color:#666!important}
+html[data-theme="light"] .newsletter h1{border-color:#171717}
+html[data-theme="light"] .live{color:#176b4b!important;border-color:#7caf99!important}
+@media(max-width:600px){.topActions .live{display:none}.themeToggle{display:inline-flex!important}}
+</style>
+
+<style>
+/* v10.1.2 Sleeper league-specific team photo patch */
+.teamAvatar{object-fit:cover;background:var(--theme-surface2)}
+.inlineSleeperAvatar{display:inline-flex;vertical-align:middle;margin-right:8px}
+.scoreBox .inlineSleeperAvatar{margin-bottom:7px}
+.v10Match .teamAvatar,.teamGrid .teamAvatar,.rankItem .teamAvatar{box-shadow:0 0 0 2px rgba(216,255,62,.12)}
 </style>
 </head>
 <script>
@@ -537,17 +583,59 @@ function restoreFullNavigation(){
  let n=document.querySelector('.nav');if(n)n.innerHTML=fullNavHTML();
 }
 
+
+function mountThemeToggle(){let m=document.getElementById("themeMount");if(m)m.innerHTML=themeToggleHTML()}
+
 function themeIcon(){
  const light=document.documentElement.dataset.theme==="light";
  return light?`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg>`:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8 8 0 0 1 8.8 4 8 8 0 1 0 20 15.2Z"/></svg>`;
 }
 function themeToggleHTML(){let light=document.documentElement.dataset.theme==="light";return `<button class="themeToggle" onclick="toggleTheme()" aria-label="Switch to ${light?'dark':'light'} mode">${themeIcon()}<span>${light?'Dark':'Light'} mode</span></button>`}
-function toggleTheme(){let next=document.documentElement.dataset.theme==="light"?"dark":"light";document.documentElement.dataset.theme=next;try{localStorage.setItem("lte-theme",next)}catch(e){};document.querySelectorAll(".themeToggle").forEach(x=>x.outerHTML=themeToggleHTML())}
-function avatarIdForTeam(t){if(!t)return"";let r=(D.rosters||[]).find(x=>x.roster_id===t.id),u=r?(D.users||[]).find(x=>x.user_id===r.owner_id):null;return u?.avatar||""}
-function avatarHTML(t,size=""){let id=avatarIdForTeam(t),cls=`teamAvatar ${size}`.trim(),initial=esc((t?.name||"LTE").replace(/[^A-Za-z0-9]/g,"").slice(0,2).toUpperCase()||"LTE");return id?`<img class="${cls}" src="https://sleepercdn.com/avatars/${id}" alt="${esc(t.name)} Sleeper icon" loading="lazy" onerror="this.outerHTML='<span class=&quot;${cls} avatarFallback&quot;>${initial}</span>'">`:`<span class="${cls} avatarFallback">${initial}</span>`}
+function toggleTheme(){let next=document.documentElement.dataset.theme==="light"?"dark":"light";document.documentElement.dataset.theme=next;try{localStorage.setItem("lte-theme",next)}catch(e){};document.querySelectorAll(".themeToggle").forEach(x=>x.outerHTML=themeToggleHTML());mountThemeToggle()}
+function sleeperUserForTeam(t){
+ if(!t)return null;
+ let r=(D.rosters||[]).find(x=>x.roster_id===t.id);
+ return r?(D.users||[]).find(x=>x.user_id===r.owner_id):null;
+}
+function teamAvatarId(t){
+ let u=sleeperUserForTeam(t),m=u?.metadata||{};
+ // Sleeper team photos are league-specific. Different app/API versions have
+ // surfaced the identifier under metadata; retain the account avatar fallback.
+ return m.avatar||m.team_avatar||m.team_avatar_id||m.avatar_id||u?.avatar||"";
+}
+function avatarCandidates(t){
+ let u=sleeperUserForTeam(t),m=u?.metadata||{},ids=[
+   m.avatar,m.team_avatar,m.team_avatar_id,m.avatar_id,u?.avatar
+ ].filter(Boolean);
+ return [...new Set(ids)].flatMap(id=>[
+   `https://sleepercdn.com/avatars/${id}`,
+   `https://sleepercdn.com/avatars/thumbs/${id}`
+ ]);
+}
+function avatarFallback(el){
+ let urls=JSON.parse(el.dataset.avatarUrls||"[]"),i=Number(el.dataset.avatarTry||0)+1;
+ if(i<urls.length){el.dataset.avatarTry=i;el.src=urls[i];return}
+ let span=document.createElement("span");span.className=el.className+" avatarFallback";span.textContent=el.dataset.initial||"LTE";el.replaceWith(span);
+}
+function avatarHTML(t,size=""){
+ let urls=avatarCandidates(t),cls=`teamAvatar ${size}`.trim(),initial=esc((t?.name||"LTE").replace(/[^A-Za-z0-9]/g,"").slice(0,2).toUpperCase()||"LTE");
+ return urls.length?`<img class="${cls}" src="${urls[0]}" data-avatar-urls='${JSON.stringify(urls)}' data-avatar-try="0" data-initial="${initial}" alt="${esc(t.name)} Sleeper team photo" loading="lazy" referrerpolicy="no-referrer" onerror="avatarFallback(this)">`:`<span class="${cls} avatarFallback">${initial}</span>`;
+}
+
+
+function enhanceTeamAvatars(root=document){
+ const byName=new Map((D.teams||[]).map(t=>[t.name,t]));
+ root.querySelectorAll(".scoreBox .teams,.v10ScoreItem,.raceRow,.oddsRow,.eloRow,.resumeRow").forEach(el=>{
+   if(el.querySelector(".teamAvatar"))return;
+   let txt=el.textContent||"",t=(D.teams||[]).find(x=>txt.includes(x.name));
+   if(!t)return;
+   let wrap=document.createElement("span");wrap.className="inlineSleeperAvatar";wrap.innerHTML=avatarHTML(t,"sm");el.prepend(wrap);
+ });
+}
 
 function render(){
  restoreFullNavigation();
+ mountThemeToggle();
  let h="";
  if(page==="HQ")h=v10Home();
  if(page==="League Pulse")h=leaguePulseHTML()+historyWeekHTML()+gameOfYearHTML()+recordsThreatHTML();
@@ -569,6 +657,7 @@ function render(){
  if(page==="Time Machine")h=timeMachineHTML();
  if(page==="History"||page==="Record Book")h=historyHTML()+(page==="History"?historyV5Graphics():"");
  $("#app").innerHTML=h
+ enhanceTeamAvatars(document.getElementById("app"));
 }
 async function loadHistory(){
  $("#app").innerHTML=`<div class="loading">Following LTE's Sleeper league history…</div>`;
